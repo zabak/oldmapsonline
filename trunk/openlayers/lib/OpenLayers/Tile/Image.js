@@ -166,7 +166,7 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         OpenLayers.Util.modifyDOMElement(this.frame, 
                                          null, this.position, this.size);   
 
-        var imageSize = this.layer.getImageSize(); 
+        var imageSize = this.layer.getImageSize( this.bounds ); 
         if (this.layerAlphaHack) {
             OpenLayers.Util.modifyAlphaImageDiv(this.imgDiv,
                     null, null, imageSize, this.url);
@@ -199,7 +199,7 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
     initImgDiv: function() {
         
         var offset = this.layer.imageOffset; 
-        var size = this.layer.getImageSize(); 
+        var size = this.layer.getImageSize( this.bounds );
      
         if (this.layerAlphaHack) {
             this.imgDiv = OpenLayers.Util.createAlphaImageDiv(null,
