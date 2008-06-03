@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="openlayers/lib/OpenLayers.js"></script>
+	<style>
+		html, body { overflow: hidden; padding: 0; margin:0; height: 100%; width: 100%; font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif; }
+		#map { width: 500px; height:350px; border: 1px solid black; }
+	</style>
+    <script type="text/javascript">
+
+        var map, layer;
+ 
+        function init(){
+			
+	       var options = {
+	            // maxExtent: new OpenLayers.Bounds(0, -8241, 14781, 0),
+	            maxExtent: new OpenLayers.Bounds(0, -7682, 9474, 0),
+				projection: "none",
+				maxResolution: 'auto',
+				numZoomLevels: 10,
+	            units: 'pixels'
+	        };
+	
+           map = new OpenLayers.Map( 'map', options );
+ 
+            layer = new OpenLayers.Layer.WMS(
+                "Image as WMS",
+                "http://archivnimapy.cuzk.cz/cgi-bin/mapserv.exe?",
+                { 	mode: 'map	',
+   					// map: 'd:/wwwdata/sbirka_I/I-1-013/I-1-013.map',
+					map: 'd:/wwwdata/topo/4357/4357-001.map',
+					layers: 'co_rastr' },
+                { //singleTile: true } // 
+					buffer: 0, gutter: 15}
+            );
+            map.addLayer(layer);
+			map.zoomToMaxExtent();
+        }
+    </script>
+  </head>
+  <body onload="init()">
+    <h1 id="title">Image published as WMS (without projection)</h1>
+<!--
+http://archivnimapy.cuzk.cz/cgi-bin/mapserv.exe?mode=map&map=d:/wwwdata/topo/4357/4357-001.map&mapext=3028.107679465776+-5011.254590984974+8151.578464106844+-1170.2545909849746&mapsize=800+600&layers=co_rastr	
+
+http://archivnimapy.cuzk.cz/cgi-bin/mapserv.exe?mode=map&map=d:/wwwdata/topo/4357/4357-001.map&service=WMS&VERSION=1.1.1&layers=co_rastr&REQUEST=GetCapabilities
+
+*****
+	
+http://archivnimapy.cuzk.cz/cgi-bin/mapserv.exe?mode=map&map=d:/wwwdata/sbirka_I/I-1-013/I-1-013.map&service=WMS&VERSION=1.1.1&layers=co_rastr&REQUEST=GetCapabilities
+
+  <Layer>
+    <Name>cio_I-1-013</Name>
+    <Title>cio_I-1-013</Title>
+    <SRS></SRS>
+    <LatLonBoundingBox minx="0" miny="-8241" maxx="14781" maxy="0" />
+  </Layer>
+
+http://archivnimapy.cuzk.cz/cgi-bin/mapserv.exe?mode=map&map=d:/wwwdata/sbirka_I/I-1-013/I-1-013.map&layers=co_rastr
+
+-->
+
+    <div id="tags">
+    </div>
+        <p id="shortdesc">
+            Shows an example of an "untiled" WMS layer, which requests a single
+            image for the entire map view.
+        </p>
+    <div id="map" class="smallmap"></div>
+  </body>
+</html>
+
+
