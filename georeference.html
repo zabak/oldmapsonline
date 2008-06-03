@@ -125,6 +125,10 @@
 		        map = new OpenLayers.Map('map', options);
 
 		        // create Google Mercator layers
+		        var gter = new OpenLayers.Layer.Google(
+		            "Google Terrain",
+		            {type: G_PHYSICAL_MAP, 'sphericalMercator': true}
+		        );
 		        var gmap = new OpenLayers.Layer.Google(
 		            "Google Streets",
 		            {'sphericalMercator': true}
@@ -205,7 +209,7 @@
 		        //var vector = new OpenLayers.Layer.Vector("Editable Vectors");
 		        //map.addControl(new OpenLayers.Control.EditingToolbar(vector));
 
-		        map.addLayers([gmap, gsat, ghyb, // veroad, veaer, vehyb,
+		        map.addLayers([gter, gmap, gsat, ghyb, // veroad, veaer, vehyb,
 		                       yahoo, yahoosat, yahoohyb, mapnik, osmarender]);
 		        map.addControl(new OpenLayers.Control.LayerSwitcher());
 		        map.addControl(new OpenLayers.Control.PanZoomBar());
