@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Georeference Tool (with panel): Zoomify + Google Maps</title>
+	<meta name="author" content="Klokan Petr Přidal">
+	<style>
+		html, body { background-color: #fff; padding: 0; margin:0; height: 100%; width: 100%; font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif; font-size: 8pt; }
+		#top { width: 100%; height: 100%; position: relative; border:none;
+		  min-height:450px;
+		  height:100% !important;
+		  height:450px;			
+		  min-width:650px;
+		  width:100% !important;
+		  width:650px;			
+			 }
+
+		#header { position: absolute; left:0.5%; top:0.5%; width: 99%; height: 10%; }
+		#panel { position: absolute; left:0.5%; top:10.5%; width: 20%; height: 88%; }
+		#map { position: absolute; left:20.5; top:10.5%; width: 39%; height:88%; border: 1px solid black; margin:0 auto auto 60.5%; }
+		#scan { position: absolute; left:20.5%; top:10.5%; width: 39%; height:88%; border: 1px solid black; margin-left: 0.5%;}
+		h1 { font-size: 16pt; margin-bottom:0px; margin-top:3px;}
+		#result { width: 98%; height: 60%;}
+		.crosshair { width:17px; height:17px; position:absolute; top:50%; left:50%; margin:-8px auto auto -8px; border:none; z-index:1024;}
+	</style>
+
+	    <script src="openlayers/lib/OpenLayers.js"></script>
+
+	    <!-- <script src='http://dev.virtualearth.net/mapcontrol/v3/mapcontrol.js'></script> -->
+	    <script src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjpkAC9ePGem0lIq5XcMiuhR_wWLPFku8Ix9i2SXYRVK3e45q1BQUd_beF8dtzKET_EteAjPdGDwqpQ'></script>
+
+	    <script src="http://api.maps.yahoo.com/ajaxymap?v=3.0&amp;appid=euzuro-openlayers"></script>
+
+
+	    <script type="text/javascript">
+	    //<![CDATA[
+
+	    var scan, image, zoomify, markers, feature;
+		var map;
+
+	    // avoid pink tiles
+	    OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
+	    OpenLayers.Util.onImageLoadErrorColor = "transparent";	
+
+	    function load(){
+
+			//var ZOOMIFY_WIDTH = 7000;
+			//var ZOOMIFY_HEIGHT = 9600;
+			//var zoomify_path = "file:///Users/klokan/klokan/Projects/Thesis/project/image-brno/";
+
+			//var ZOOMIFY_WIDTH = 9665;
+			//var ZOOMIFY_HEIGHT = 9335;
+			//var zoomify_path = "http://www.zoomify.com/images/folders/parisSatellite/";
+
+			var ZOOMIFY_WIDTH = 5100;
+			var ZOOMIFY_HEIGHT = 4200;
+			var zoomify_path = "http://www.zoomify.com/images/folders/ancientMap/";
+
+			var ZOOMIFY_WIDTH = 8001;
+			var ZOOMIFY_HEIGHT = 6943;
+			var zoomify_path = "http://almor.mzk.cz/moll/AA22/0103/";
+
+			var image_filename = "TileGroup0/0-0-0.jpg";
+
+
+
+	        /* Just pixel based view now */
+	        var options = {
+	            controls: [],
+	            // maxExtent: new OpenLayers.Bounds(0, -ZOOMIFY_HEIGHT, ZOOMIFY_WIDTH, 0),
+	            maxExtent: new OpenLayers.Bounds(0, 0, ZOOMIFY_WIDTH, ZOOMIFY_HEIGHT),
+	//            maxResolution: 64,
+	//            numZoomLevels: 7,
+	            maxResolution: 32,
+	            numZoomLevels: 6,
+	            units: 'pixels'
+	        };
+	        scan = new OpenLayers.Map("scan", options);
+
+	        //scan.addControl(new OpenLayers.Control.MousePosition());
+	        scan.addControl(new OpenLayers.Control.PanZoomBar());
+	        scan.addControl(new OpenLayers.Control.MouseDefaults());
+	        scan.addControl(new OpenLayers.Control.KeyboardDefaults());
+
+	        var zoomify = new OpenLayers.Layer.Zoomify( "Zoomify", zoomify_path, 
+				new OpenLayers.Size( ZOOMIFY_WIDTH, ZOOMIFY_HEIGHT ) );
+
+			//	,
+			//	{
+					// transitionEffect: 'resize',
+			//	} ); 
+	        //var zoomify = new OpenLayers.Layer.Zoomify( "Mapa Brna", './image-brno' );
+			zoomify.setIsBaseLayer(true);
+
+			// -----------
+
+			var image = new OpenLayers.Layer.Image("Image", zoomify_path+image_filename,
+			   // new OpenLayers.Bounds(0,-ZOOMIFY_HEIGHT,ZOOMIFY_WIDTH,0), new OpenLayers.Size(109,150), 
+			   new OpenLayers.Bounds(0,0,ZOOMIFY_WIDTH,ZOOMIFY_HEIGHT), new OpenLayers.Size(109,150), 
+			    {} );
+			image.setIsBaseLayer(true);
+
+	  	    var markers = new OpenLayers.Layer.Markers( "Markers" );
+
+		    var size = new OpenLayers.Size(10,17);
+		    var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+		    var icon = new OpenLayers.Icon('http://boston.openguides.org/markers/AQUA.png',size,offset);
+		    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(0,0),icon));
+		    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(ZOOMIFY_WIDTH/2,ZOOMIFY_HEIGHT/2),icon.clone()));
+		    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(ZOOMIFY_WIDTH,ZOOMIFY_HEIGHT),icon.clone()));
+
+	        scan.addLayer(zoomify);
+	//        scan.addLayer(image);
+		    scan.addLayer(markers);
+	        scan.zoomToMaxExtent();
+
+			//map.
+			// <img class="crosshair" src="../crosshair.png" width="17" height="17"> 
+
+			// -----------------------------------------------------
+
+					var image = new OpenLayers.Layer.Image("Image", zoomify_path+image_filename,
+					   // new OpenLayers.Bounds(0,-ZOOMIFY_HEIGHT,ZOOMIFY_WIDTH,0), new OpenLayers.Size(109,150), 
+					   new OpenLayers.Bounds(0,0,ZOOMIFY_WIDTH,ZOOMIFY_HEIGHT), new OpenLayers.Size(109,150), 
+					    {} );
+					image.setIsBaseLayer(true);
+
+			  	    var markers = new OpenLayers.Layer.Markers( "Markers" );
+
+				    var size = new OpenLayers.Size(10,17);
+				    var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+				    var icon = new OpenLayers.Icon('http://boston.openguides.org/markers/AQUA.png',size,offset);
+				    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(0,0),icon));
+				    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(ZOOMIFY_WIDTH/2,ZOOMIFY_HEIGHT/2),icon.clone()));
+				    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(ZOOMIFY_WIDTH,ZOOMIFY_HEIGHT),icon.clone()));
+
+			        scan.addLayer(zoomify);
+			//        scan.addLayer(image);
+				    scan.addLayer(markers);
+			        scan.zoomToMaxExtent();
+
+					// -----------------------------------------------------
+
+			        var options = {
+						controls: [],
+			            projection: new OpenLayers.Projection("EPSG:900913"),
+			            displayProjection: new OpenLayers.Projection("EPSG:4326"),
+			            units: "m",
+			            maxResolution: 156543.0339,
+			            maxExtent: new OpenLayers.Bounds(-20037508, -20037508,
+			                                             20037508, 20037508.34)
+			        };
+			        map = new OpenLayers.Map('map', options);
+
+			        // create Google Mercator layers
+			        var gmap = new OpenLayers.Layer.Google(
+			            "Google Streets",
+			            {'sphericalMercator': true}
+			        );
+			        var gsat = new OpenLayers.Layer.Google(
+			            "Google Satellite",
+			            {type: G_SATELLITE_MAP, 'sphericalMercator': true}
+			        );
+			        var ghyb = new OpenLayers.Layer.Google(
+			            "Google Hybrid",
+			            {type: G_HYBRID_MAP, 'sphericalMercator': true}
+			        );
+
+			        /* // create Virtual Earth layers
+			        var veroad = new OpenLayers.Layer.VirtualEarth(
+			            "Virtual Earth Roads",
+			            {'type': VEMapStyle.Road, 'sphericalMercator': true}
+			        );
+			        var veaer = new OpenLayers.Layer.VirtualEarth(
+			            "Virtual Earth Aerial",
+			            {'type': VEMapStyle.Aerial, 'sphericalMercator': true}
+			        );
+			        var vehyb = new OpenLayers.Layer.VirtualEarth(
+			            "Virtual Earth Hybrid",
+			            {'type': VEMapStyle.Hybrid, 'sphericalMercator': true}
+			        );
+					*/
+
+			        // create Yahoo layer
+			        var yahoo = new OpenLayers.Layer.Yahoo(
+			            "Yahoo Street",
+			            {'sphericalMercator': true}
+			        );
+			        var yahoosat = new OpenLayers.Layer.Yahoo(
+			            "Yahoo Satellite",
+			            {'type': YAHOO_MAP_SAT, 'sphericalMercator': true}
+			        );
+			        var yahoohyb = new OpenLayers.Layer.Yahoo(
+			            "Yahoo Hybrid",
+			            {'type': YAHOO_MAP_HYB, 'sphericalMercator': true}
+			        );
+
+			        // create OSM layer
+			        var mapnik = new OpenLayers.Layer.TMS(
+			            "OpenStreetMap (Mapnik)",
+			            "http://tile.openstreetmap.org/",
+			            {
+			                type: 'png', getURL: osm_getTileURL,
+			                displayOutsideMaxExtent: true,
+			                attribution: '<a href="http://www.openstreetmap.org/">OpenStreetMap</a>'
+			            }
+			        );
+
+			        // create OSM layer
+			        var osmarender = new OpenLayers.Layer.TMS(
+			            "OpenStreetMap (Tiles@Home)",
+			            "http://tah.openstreetmap.org/Tiles/tile.php/",
+			            {
+			                type: 'png', getURL: osm_getTileURL,
+			                displayOutsideMaxExtent: true,
+			                attribution: '<a href="http://www.openstreetmap.org/">OpenStreetMap</a>'
+			            }
+			        );
+
+
+			        // create WMS layer
+			        var wms = new OpenLayers.Layer.WMS(
+			            "World Map",
+			            "http://world.freemap.in/tiles/",
+			            {'layers': 'factbook-overlay', 'format':'png'},
+			            {
+			                'opacity': 0.4,
+			                'isBaseLayer': false,'wrapDateLine': true
+			            }
+			        );
+
+			        // create a vector layer for drawing
+			        //var vector = new OpenLayers.Layer.Vector("Editable Vectors");
+			        //map.addControl(new OpenLayers.Control.EditingToolbar(vector));
+
+			        map.addLayers([gmap, gsat, ghyb, // veroad, veaer, vehyb,
+			                       yahoo, yahoosat, yahoohyb, mapnik, osmarender]);
+			        map.addControl(new OpenLayers.Control.LayerSwitcher());
+			        map.addControl(new OpenLayers.Control.PanZoomBar());
+			        map.addControl(new OpenLayers.Control.MouseDefaults());
+			        //map.addControl(new OpenLayers.Control.KeyboardDefaults());
+			        //map.addControl(new OpenLayers.Control.MousePosition());
+			        if (!map.getCenter()) {map.zoomToMaxExtent()}
+			    }
+
+	    function osm_getTileURL(bounds) {
+	        var res = this.map.getResolution();
+	        var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
+	        var y = Math.round((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
+	        var z = this.map.getZoom();
+	        var limit = Math.pow(2, z);
+
+	        if (y < 0 || y >= limit) {
+	            return OpenLayers.Util.getImagesLocation() + "404.png";
+	        } else {
+	            x = ((x % limit) + limit) % limit;
+	            return this.url + z + "/" + x + "/" + y + "." + this.type;
+	        }
+	    }
+		
+		function updateSize() {
+			map.updateSize();
+			scan.updateSize();
+		}
+
+		function addPoint() {
+			var cs = scan.getCenter();
+			var cm = map.getCenter().clone();
+			cm.transform( map.getProjectionObject(), map.displayProjection);
+			resultBox = document.getElementById('result')
+			resultBox.innerHTML += cs.lon+' '+cs.lat+' '+Math.round(cm.lon*1000000000)/1000000000+' '+Math.round(cm.lat*1000000000)/1000000000+'\n';
+			resultBox.scrollTop = resultBox.scrollHeight;
+		}
+
+	    //]]>
+	    </script>
+
+</head>
+<body onload="load()" onResize="updateSize()">
+	<div id="top">
+		<div id="header"><h1>Georeference Tool (with panel): Zoomify + Google Maps</h1>Center and zoom both maps to the same places and click on the button to add a control point.</div>
+		<div id="panel"><button id="button" onClick= "addPoint();">Add point</button><h4>Result:</h4><textarea id="result" rows="30"></textarea></div>
+		<div id="scan"><img class="crosshair" src="crosshair.png" width="17" height="17"></div>
+	  	<div id="map"><img class="crosshair" src="crosshair.png" width="17" height="17"></div>
+	</div>
+</body>
+</html>
