@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" debug="true"> 
+  <head>
+    <title>OpenLayers Zoomify</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv='imagetoolbar' content='no'/>
+    <style type="text/css"> v\:* {behavior:url(#default#VML);}
+        html, body { overflow: hidden; padding: 0; height: 100%; width: 100%; font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif; }
+        body { margin: 10px; background: #fff; }
+        #map { height: 95%; width: 95%; border: 1px solid #888; }
+    </style>
+    <script src="openlayers/lib/Firebug/firebug.js"></script>
+    <script src="openlayers/lib/OpenLayers.js"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+
+    var map, image, zoomify, markers, feature;
+
+    function load(){
+ 
+		//var ZOOMIFY_WIDTH = 7000;
+		//var ZOOMIFY_HEIGHT = 9600;
+		//var zoomify_path = "file:///Users/klokan/klokan/Projects/Thesis/project/image-brno/";
+
+		//var ZOOMIFY_WIDTH = 9665;
+		//var ZOOMIFY_HEIGHT = 9335;
+		//var zoomify_path = "http://www.zoomify.com/images/folders/parisSatellite/";
+		
+		var ZOOMIFY_WIDTH = 5100;
+		var ZOOMIFY_HEIGHT = 4200;
+		var zoomify_path = "http://www.zoomify.com/images/folders/ancientMap/";
+
+		var ZOOMIFY_WIDTH = 149307;
+		var ZOOMIFY_HEIGHT = 65984;
+		var zoomify_path = "http://haltadefinizione.deagostini.it/hresimg/ignazio/";
+
+		var image_filename = "TileGroup0/0-0-0.jpg";
+		
+        var zoomify = new OpenLayers.Layer.Zoomify( "Zoomify", zoomify_path, 
+			new OpenLayers.Size( ZOOMIFY_WIDTH, ZOOMIFY_HEIGHT ) );
+
+        /* Just pixel based view now */
+        var options = {
+            controls: [],
+            // maxExtent: new OpenLayers.Bounds(0, -ZOOMIFY_HEIGHT, ZOOMIFY_WIDTH, 0),
+            maxExtent: new OpenLayers.Bounds(0, 0, ZOOMIFY_WIDTH, ZOOMIFY_HEIGHT),
+	    maxResolution: Math.pow(2, zoomify.numberOfTiers-1 ),
+	    numZoomLevels: zoomify.numberOfTiers,
+            units: 'pixels'
+        };
+        map = new OpenLayers.Map("map", options);
+
+        map.addControl(new OpenLayers.Control.MousePosition());
+        map.addControl(new OpenLayers.Control.PanZoomBar());
+        map.addControl(new OpenLayers.Control.MouseDefaults());
+        map.addControl(new OpenLayers.Control.KeyboardDefaults());
+		
+			
+		//	,
+		//	{
+				// transitionEffect: 'resize',
+		//	} ); 
+        //var zoomify = new OpenLayers.Layer.Zoomify( "Mapa Brna", './image-brno' );
+		zoomify.setIsBaseLayer(true);
+
+		// -----------
+		
+		var image = new OpenLayers.Layer.Image("Image", zoomify_path+image_filename,
+		   // new OpenLayers.Bounds(0,-ZOOMIFY_HEIGHT,ZOOMIFY_WIDTH,0), new OpenLayers.Size(109,150), 
+		   new OpenLayers.Bounds(0,0,ZOOMIFY_WIDTH,ZOOMIFY_HEIGHT), new OpenLayers.Size(109,150), 
+		    {} );
+		image.setIsBaseLayer(true);
+
+  	    var markers = new OpenLayers.Layer.Markers( "Markers" );
+
+	    var size = new OpenLayers.Size(10,17);
+	    var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+	    var icon = new OpenLayers.Icon('http://boston.openguides.org/markers/AQUA.png',size,offset);
+	    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(0,0),icon));
+	    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(ZOOMIFY_WIDTH/2,ZOOMIFY_HEIGHT/2),icon.clone()));
+	    markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(ZOOMIFY_WIDTH,ZOOMIFY_HEIGHT),icon.clone()));
+ 
+        map.addLayer(zoomify);
+//        map.addLayer(image);
+	    map.addLayer(markers);
+        map.zoomToMaxExtent();
+    }
+   
+    //]]>
+    </script>
+  </head>
+  <body onload="load()">
+       <div id="map"></div>
+  </body>
+</html>
