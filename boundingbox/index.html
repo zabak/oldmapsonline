@@ -1,0 +1,470 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"> 
+  <head>
+    <title>Bounding Box for MARC21 / DublinCore Metadata</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv='imagetoolbar' content='no'/>
+	  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAA9pSslyaYyyl6x8HKrHAZvxTpEGFoVaAbjAp-gq7JhGs1rSZuIRRbl58wxj3-nMTJBNkcwskHssTo6A"
+	type="text/javascript"></script>
+	  <script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key=ABQIAAAA9pSslyaYyyl6x8HKrHAZvxTpEGFoVaAbjAp-gq7JhGs1rSZuIRRbl58wxj3-nMTJBNkcwskHssTo6A" type="text/javascript"></script>
+	  <script src="http://www.google.com/uds/solutions/localsearch/gmlocalsearch.js" type="text/javascript"></script>
+	<style type="text/css">
+	  @import url("http://www.google.com/uds/css/gsearch.css");
+	  @import url("http://www.google.com/uds/solutions/localsearch/gmlocalsearch.css");
+	    v\:* {behavior:url(#default#VML);}
+        html, body { padding: 0; margin: 0; height: 100%; width: 100%; font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif; }
+        body { margin: 0px; padding: 0; background: #fff; font-size: 10px;}
+        h1 { margin: 0; padding: 0px; border:0; font-size: 20px; white-space: nowrap; }
+		h2 { font-size: 16px; margin:0; padding:0; padding-bottom:3px; white-space: nowrap; color: #999; }
+        #header { height: 70px; padding: 0; margin-left:10px; padding-top: 10px; white-space: nowrap; }
+        #map { width: 60%; height: 80%; border: 1px solid #888; margin-left: 315px;}
+        #panel { float: left; width: 270px; padding: 10px; border: 1px solid #888; min-height: 550px; height: 80%; margin-left: 10px; background-color: #eee;}
+		#footer { text-align: right; white-space: nowrap; margin-right: 15px;} 
+    </style>
+    <script type="text/javascript">
+
+	var map = null;
+	var mNE, mSW, mSE, mNW, mS, N, mW, mE;
+	var borderbox;
+	var groundOverlay;
+
+	var iNE, iSW, iSE, iNW, ih, iv;
+
+	var zoomend = false;
+
+	function load() {
+	  resize();
+	  
+	  // document.getElementById('souradnice').style.display = "none";
+	  // document.getElementById('code').style.display = "none";
+	  map = new GMap2(document.getElementById("map"));
+	  map.removeMapType(G_SATELLITE_MAP);
+	  map.addMapType(G_PHYSICAL_MAP);
+	  map.setCenter(new GLatLng(49.80785, 15.58069), 7);
+	  map.addControl(new GLargeMapControl());
+	  map.addControl(new GMapTypeControl());
+	  map.addControl(new google.maps.LocalSearch({
+		resultList : google.maps.LocalSearch.RESULT_LIST_SUPPRESS,
+		suppressInitialResultSelection : true
+	  }), new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(75,10)));
+	
+	 // var bounds = map.getBounds();
+
+
+	  iNE = new GIcon(); 
+	  iNE.image = 'mNE.png';
+	  iNE.shadow = '';
+	  iNE.iconSize = new GSize(32, 32);
+	  iNE.shadowSize = new GSize(22, 20);
+	  iNE.iconAnchor = new GPoint(24, 8);
+	  iNE.dragCrossImage = '';
+
+	  iSW = new GIcon(); 
+	  iSW.image = 'mSW.png';
+	  iSW.shadow = '';
+	  iSW.iconSize = new GSize(32, 32);
+	  iSW.shadowSize = new GSize(22, 20);
+	  iSW.iconAnchor = new GPoint(8, 24);
+	  iSW.dragCrossImage = '';
+
+	  iSE = new GIcon();
+	  iSE.image = 'mSE.png';
+	  iSE.shadow = '';
+	  iSE.iconSize = new GSize(32, 32);
+	  iSE.shadowSize = new GSize(22, 20);
+	  iSE.iconAnchor = new GPoint(24, 24);
+	  iSE.dragCrossImage = '';
+
+	  iNW = new GIcon();
+	  iNW.image = 'mNW.png';
+	  iNW.shadow = '';
+	  iNW.iconSize = new GSize(32, 32);
+	  iNW.shadowSize = new GSize(22, 20);
+	  iNW.iconAnchor = new GPoint(8, 8);
+	  iNW.dragCrossImage = '';
+
+	  ih = new GIcon();
+	  ih.image = 'mh.png';
+	  ih.shadow = '';
+	  ih.iconSize = new GSize(32, 32);
+	  ih.shadowSize = new GSize(0, 0);
+	  ih.iconAnchor = new GPoint(16, 16);
+	  ih.dragCrossImage = '';
+
+	  iv = new GIcon();
+	  iv.image = 'mv.png';
+	  iv.shadow = '';
+	  iv.iconSize = new GSize(32, 32);
+	  iv.shadowSize = new GSize(0, 0);
+	  iv.iconAnchor = new GPoint(16, 16);
+	  iv.dragCrossImage = '';
+
+	  GEvent.addListener(map, 'zoomend', function(oldLevel,  newLevel) {
+	    zoomend = true;
+	    if (!borderbox) return 0;
+	    updateHVMarkers();
+	  });
+
+	  GEvent.addListener(map, 'moveend', function() {
+	    if (zoomend) {zoomend = false; return 0;}
+	    if (!borderbox) return 0;
+	    updateHVMarkers();
+	  });
+	
+	}
+
+	function updateHVMarkers()
+	{
+	  var mapBounds = map.getBounds();
+	  var borderboxBounds = new GLatLngBounds(mSW.getPoint(), mNE.getPoint());
+
+	  /* jestlize je videt hrana (neprazdny prunik a zaroven mapa neni cela uvnitr obdelniku) */
+	  if (mapBounds.intersects(borderboxBounds) && !borderboxBounds.containsBounds(mapBounds))
+	  {
+	    var mne = mapBounds.getNorthEast();
+	    var msw = mapBounds.getSouthWest();
+	    var mnw = new GLatLng(mne.lat(), msw.lng());
+	    var mse = new GLatLng(msw.lat(), mne.lng());
+	    var bne = mNE.getPoint();
+	    var bsw = mSW.getPoint();
+	    var bnw = new GLatLng(bne.lat(), bsw.lng());
+	    var bse = new GLatLng(bsw.lat(), bne.lng());
+
+	    if (msw.lng() > 0)
+	    {
+	    	if (bsw.lng() > 0) w = (msw.lng() < bsw.lng()) ? bsw.lng() : msw.lng();
+	    	else w = msw.lng();
+	    }
+	    else
+	    {
+	    	if (bsw.lng() < 0) w = (msw.lng() < bsw.lng()) ? bsw.lng() : msw.lng();
+	    	else w = bsw.lng();
+	    }
+
+	    if (mse.lng() > 0)
+	    {
+	    	if (bse.lng() > 0) e = (mse.lng() > bse.lng()) ? bse.lng() : mse.lng();
+	    	else e = bse.lng();
+	    }
+	    else
+	    {
+	    	if (bse.lng() < 0) e = (mse.lng() > bse.lng()) ? bse.lng() : mse.lng();
+	    	else e = mse.lng();
+
+	    }
+
+	    var mnwlat = 90 - mnw.lat();
+	    var bnwlat = 90 - bnw.lat();
+	    var n = (mnwlat < bnwlat) ? bnwlat : mnwlat;
+	    n = 90 - n;
+
+	    var mswlat = 90 - msw.lat();
+	    var bswlat = 90 - bsw.lat();
+	    var s = (mswlat > bswlat) ? bswlat : mswlat;
+	    s = 90 - s;
+
+	    mS.setLatLng(new GLatLng(bsw.lat(), (w + e)/2));
+	    mN.setLatLng(new GLatLng(bnw.lat(), (w + e)/2));
+	    mW.setLatLng(new GLatLng((n + s)/2, bnw.lng()));
+	    mE.setLatLng(new GLatLng((n + s)/2, bne.lng()));
+	  }
+	}
+
+	function initialPosition() {
+	  map.clearOverlays();
+	  var bounds = map.getBounds();
+	  var span = bounds.toSpan();
+	  var bne = new GLatLng(bounds.getNorthEast().lat() - span.lat()/5,
+	                        bounds.getNorthEast().lng() - span.lng()/5);
+	  var bsw = new GLatLng(bounds.getSouthWest().lat() + span.lat()/5,
+	                        bounds.getSouthWest().lng() + span.lng()/5);
+	  var bse = new GLatLng(bsw.lat(), bne.lng());
+	  var bnw = new GLatLng(bne.lat(), bsw.lng());
+
+	  mNE = new GMarker(bne, {draggable: true, icon: iNE});
+	  GEvent.addListener(mNE, 'dragend', function() {
+	    mSE.setLatLng(new GLatLng(mSE.getPoint().lat(), mNE.getPoint().lng()));
+	    mNW.setLatLng(new GLatLng(mNE.getPoint().lat(), mNW.getPoint().lng()));
+	    updateHVMarkers();
+	    updatePolyline();
+	  });
+
+	  mSW = new GMarker(bsw, {draggable: true, icon: iSW});
+	  GEvent.addListener(mSW, 'dragend', function() {
+	    mSE.setLatLng(new GLatLng(mSW.getPoint().lat(), mSE.getPoint().lng()));
+	    mNW.setLatLng(new GLatLng(mNW.getPoint().lat(), mSW.getPoint().lng()));
+	    updateHVMarkers();
+	    updatePolyline();
+	  });
+
+	  mSE = new GMarker(bse, {draggable: true, icon: iSE});
+	  GEvent.addListener(mSE, 'dragend', function() {
+	    mSW.setLatLng(new GLatLng(mSE.getPoint().lat(), mSW.getPoint().lng()));
+	    mNE.setLatLng(new GLatLng(mNE.getPoint().lat(), mSE.getPoint().lng()));
+	    updateHVMarkers();
+	    updatePolyline();
+	  });
+
+	  mNW = new GMarker(bnw, {draggable: true, icon: iNW});
+	  GEvent.addListener(mNW, 'dragend', function() {
+	    mSW.setLatLng(new GLatLng(mSW.getPoint().lat(), mNW.getPoint().lng()));
+	    mNE.setLatLng(new GLatLng(mNW.getPoint().lat(), mNE.getPoint().lng()));
+	    updateHVMarkers();
+	    updatePolyline();
+	  });
+
+	  mS = new GMarker(new GLatLng(bsw.lat(), (bsw.lng() + bse.lng())/2), {draggable: true, icon: ih});
+	  GEvent.addListener(mS, 'dragend', function() {
+	    var swlng = mSW.getPoint().lng();
+	    var selng = mSE.getPoint().lng();
+	    mSW.setLatLng(new GLatLng(mS.getPoint().lat(), swlng));
+	    mSE.setLatLng(new GLatLng(mS.getPoint().lat(), selng));
+	    updateHVMarkers();
+	    updatePolyline();
+	  });
+
+	  mN = new GMarker(new GLatLng(bnw.lat(), (bnw.lng() + bne.lng())/2), {draggable: true, icon: ih});
+	  GEvent.addListener(mN, 'dragend', function() {
+	    var nwlng = mNW.getPoint().lng();
+	    var nelng = mNE.getPoint().lng();
+	    mNW.setLatLng(new GLatLng(mN.getPoint().lat(), nwlng));
+	    mNE.setLatLng(new GLatLng(mN.getPoint().lat(), nelng));
+	    updateHVMarkers();
+	    updatePolyline();
+	  });
+
+	  mW = new GMarker(new GLatLng((bnw.lat() + bsw.lat())/2, bnw.lng()), {draggable: true, icon: iv});
+	  GEvent.addListener(mW, 'dragend', function() {
+	    var swlat = mSW.getPoint().lat();
+	    var nwlat = mNW.getPoint().lat();
+	    mSW.setLatLng(new GLatLng(swlat, mW.getPoint().lng()));
+	    mNW.setLatLng(new GLatLng(nwlat, mW.getPoint().lng()));
+	    updateHVMarkers();
+	    updatePolyline();
+	  });
+
+	  mE = new GMarker(new GLatLng((bne.lat() + bse.lat())/2, bne.lng()), {draggable: true, icon: iv});
+	  GEvent.addListener(mE, 'dragend', function() {
+	    var selat = mSE.getPoint().lat();
+	    var nelat = mNE.getPoint().lat();
+	    mSE.setLatLng(new GLatLng(selat, mE.getPoint().lng()));
+	    mNE.setLatLng(new GLatLng(nelat, mE.getPoint().lng()));
+	    updateHVMarkers();
+	    updatePolyline();
+	  });
+
+	  map.addOverlay(mNE);
+	  map.addOverlay(mSW);
+	  map.addOverlay(mSE);
+	  map.addOverlay(mNW);
+	  map.addOverlay(mS);
+	  map.addOverlay(mN);
+	  map.addOverlay(mW);
+	  map.addOverlay(mE);
+
+	  updatePolyline();
+	}
+
+	function updatePolyline() {
+	  if (borderbox) {
+	    map.removeOverlay(borderbox);
+	  }
+
+	  var points = [
+	      mNE.getPoint(),
+	      mSE.getPoint(),
+	      mSW.getPoint(),
+	      mNW.getPoint(),
+	      mNE.getPoint()];  
+	  borderbox = new GPolyline(points, "#fff600");
+	
+	  map.addOverlay(borderbox);
+
+	  updateCode();  
+	}
+
+	function coord( x, displace) {
+	 d1 = parseInt(x / 10000);
+	 d2 = parseInt((x - d1*10000) / 100);
+	 d3 = parseInt(x - (d1*10000) - (d2*100));
+	 sec = d1*3600 + d2*60 + d3 - displace;
+	 return sec/3600;
+	}
+
+	function showCoordinates( n, s, w, e, displace) {
+	 coord(n, 0), 
+
+	  map.clearOverlays();
+	  var newSW = new GLatLng(coord(s,0), coord(w, displace)); 
+	  var newNE = new GLatLng(coord(n,0), coord(e, displace));
+
+	  var newBounds = new GLatLngBounds(newSW, newNE);
+
+	  mNE = new GMarker(newBounds.getNorthEast(), {draggable: true, icon: iNE});
+	  GEvent.addListener(mNE, 'dragend', function() {
+	    updatePolyline();
+	  });
+
+	  mSW = new GMarker(newBounds.getSouthWest(), {draggable: true, icon: iSW});
+	  GEvent.addListener(mSW, 'dragend', function() {
+	    updatePolyline();
+	  });
+
+	  map.setCenter(newBounds.getCenter(), map.getBoundsZoomLevel(newBounds));
+	  map.addOverlay(mNE);
+	  map.addOverlay(mSW);
+
+	  updatePolyline();
+	  toggleDiv();
+	  return false;
+	}
+
+	function format( n, lat, human) {
+	 if (n > 0) {
+	 	la = "s.š."; la1 = "N"; lo = "v.d."; lo1 = "E";
+	 } else {
+	 	la = "j.š."; la1 = "S"; lo = "z.d."; lo1 = "W"; n = -n;
+	 }
+
+	 d0 = parseInt(n);
+	 d1 = n - d0;
+	 d1 = parseInt( (n - d0) / (1/60.0));
+	 d2 = ((n - d0) - (d1 * (1/60))) / (1/3600);
+	 d2 = parseInt(d2); // parseInt(d2*100)/100;
+
+	 d0 = (1000 + d0).toString().substring(1,4);
+	 d1 = (100 + d1).toString().substring(1,3);
+	 d2 = (100 + d2).toString().substring(1,3);
+	 if (lat) {
+	   if (human) {
+	 	return d0 + '°' + d1 + '´' + d2 + '" ' + la;
+	   } else {
+	 	return la1 + d0 + d1 + d2;
+	   }
+	 } else {
+	   if (human) {
+	 	return d0 + '°' + d1 + '´' + d2 + '" ' + lo;
+	   } else {
+	 	return lo1 + d0 + d1 + d2;
+	   }
+	 }
+	}
+
+	function updateCode() {
+	  var code = [];
+	    code.push('<b>034:</b> $$d'+ format( mSW.getPoint().lng(), false, false) +
+	      '$$e'+ format( mNE.getPoint().lng(), false, false) +
+	      '$$f'+ format( mNE.getPoint().lat(), true, false) +
+	      '$$g'+ format( mSW.getPoint().lat(), true, false));
+	    code.push('<b>255:</b> $$c[('+ format( mSW.getPoint().lng(), false, true) +
+	      '--'+ format( mNE.getPoint().lng(), false, true) +
+	      '/'+ format( mNE.getPoint().lat(), true, true) +
+	      '--'+ format( mSW.getPoint().lat(), true, true) + ')].');
+	    var codeHTML = code.join("<br/>");
+	    document.getElementById("code").innerHTML = codeHTML;
+	    document.getElementById('code').style.display = "";
+	}
+
+	function toggleDiv() {
+	    if (document.getElementById('souradnice').style.display == "") {
+	    	document.getElementById('souradnice').style.display = "none";
+	    } else {
+	    	document.getElementById('souradnice').style.display = "";
+	    }
+	    return false;
+	}
+
+
+    function getWindowHeight() {
+        if (self.innerHeight) return self.innerHeight;
+        if (document.documentElement && document.documentElement.clientHeight)
+            return document.documentElement.clientHeight;
+        if (document.body) return document.body.clientHeight;
+	        return 0;
+    }
+
+    function getWindowWidth() {
+	    if (self.innerWidth) return self.innerWidth;
+	    if (document.documentElement && document.documentElement.clientWidth)
+	        return document.documentElement.clientWidth;
+	    if (document.body) return document.body.clientWidth;
+	        return 0;
+    }
+    
+    function resize() {  
+	    var map = document.getElementById("map");  
+	    var panel = document.getElementById("panel");  
+	    map.style.height = (getWindowHeight()-110) + "px";
+	    map.style.width = (getWindowWidth()-335) + "px";
+	    panel.style.height = (getWindowHeight()-130) + "px";
+    } 
+
+    onresize=function(){ resize(); };
+	GSearch.setOnLoadCallback(load);
+
+    //]]>
+    </script>
+  </head>
+  <body onload="load()">
+      <div id="header"><a href="http://www.oldmapsonline.org/"><img src="logo55.png" alt="Old Maps Online: Antique Maps &amp; Open-Source" width="55" height="55" align="left" style="border:0; margin-right:10px;"></a><h1>Bounding Box for MARC21 / DublinCore Metadata</h1><h2>Visual selection of a bounding box for geotagging of a biliography record</h2>
+	Geotagged records are prepared for a geo-search engine. Documetation for used notation in MARC and DublinCore. <a href="help.html">Help for this tool</a>.</div>
+		<div id="panel">
+			<div id="name" style="text-align:right; font-style: italic;">
+			<a href="#">Hide this panel</a>
+			</div>
+			<h4>1a. Zoom to area and add there the bounding box visually.</h4>
+			  <form action="#" onsubmit="return false">
+			     <input value="Add bounding box to displayed area" onclick="initialPosition();" type="button">
+			<!-- <input value="Přidat bod" onclick="initialPosition();" type="button"> -->
+			  </form>
+			You can zoom to the corners of the box and do correction. Search for place names is available as well.
+			<p/>
+
+			<h4>1b. Or type coordinates of the box.</h4>
+			<div class="note">Notation <b>16 38 50</b> is equal to 16°38´50".</div>
+
+			    <div id="souradnice" style="position: relative; width: 270px; height: 110px;">
+
+			    <form action="#" onsubmit="showCoordinates(this.north.value, this.south.value, this.west.value, this.east.value, this.displace.value); return false">
+			    <input style="position: absolute; display: block; float: left; top: 10px; left: 81px;" id="north" type="text" name="north"  size="10" />
+			    <input style="position: absolute; display: block; float: left; top: 40px; left: 28px;" id="west" type="text" name="west"  size="10" />
+			    <input style="position: absolute; display: block; float: left; top: 40px; left: 133px;" id="east" type="text" name="east"  size="10" />
+			    <input style="position: absolute; display: block; float: left; top: 70px; left: 81px;" id="south" type="text" name="south"  size="10" />
+			</div>
+				
+			 <div style="width: 270px !important;"> 
+			Prime meridian: &nbsp; 
+			<select name="displace">
+			<option type="radio" value="0">Greenwich</option>
+			<option type="radio" value="62640">Ferro</option>
+			<option type="radio" value="-84333">Athens</option>
+			<option type="radio" value="-26144">Bern</option>
+			<option type="radio" value="266562">Bogota</option>
+			<option type="radio" value="-15194">Brussels</option>
+			<option type="radio" value="87900">Fogo</option>
+			<option type="radio" value="-383338">Jakarta</option>
+			<option type="radio" value="32672">Lisbon</option>
+			<option type="radio" value="12282">Madrid</option>
+			<option type="radio" value="83400">Maio</option>
+			<option type="radio" value="-8414">Paris</option>
+			<option type="radio" value="-44175">Rome</option>
+			<option type="radio" value="-64919">Stockholm</option>
+			</select>
+			<p/>
+			Note: When you are using coordinates from the frame of an old map be aware of the used geodetic datums. Shift of the prime meridian is just first aproximation. Use database <a href="http://www.spatialreference.org/">SpatialReference.org</a>. Here is WGS84 Datum (EPSG:4326).
+			<p/>
+			<input type="submit" name="add" value="Add box to the map"/>
+			</form>
+			<p/>
+			<h4>2. Paste result to your metadata record.</h4>
+			Result format: <a href="#">MARC</a> | <a href="#">DublinCore</a> | <a href="#">Plain</a><br/>
+       	    <pre class="prettyprint" style="display: block; border: #999 1px; height: 60px; width: 270px; background-color: white;" id="code"></pre>
+			<i>Content of this box is under IE automatically copied into Clipboard, so you can just paste with Ctrl-V.</i>
+
+	    </div>
+     </div>
+	  <div id="map"></div>
+      <div id="footer"><a href="">Save map position as default</a>. Change language: <a href="#">en</a>, <a href="#">cz</a>. Developed for grant <a href="http://www.oldmapsonline.org/">Old Maps Online</a>. Copyright (C) 2008 <a href="http://www.klokan.cz/">Klokan Petr Pridal</a>.
+      </div>
+  </body>
+</html>
