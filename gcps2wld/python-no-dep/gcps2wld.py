@@ -49,8 +49,8 @@ def main(argv=None):
         destSet = []
         sourceSet = []
         for line in open(options.inputfile, 'r'):
-                destSet.append( map( float, line.split()[:2] ) )
-                sourceSet.append( map( float, line.split()[2:4] ) )
+                sourceSet.append( map( float, line.split()[:2] ) )
+                destSet.append( map( float, line.split()[2:4] ) )
 
         # print(destSet)
         # print(sourceSet)
@@ -202,8 +202,8 @@ def main(argv=None):
                 cosRot = math.cos(params[ROT])
                 sinRot = math.sin(params[ROT])
                 print params[SCALEX]*cosRot
-                print -params[SCALEY]*sinRot
                 print params[SCALEX]*sinRot
+                print -params[SCALEY]*sinRot
                 print params[SCALEY]*cosRot
                 print cxDst - params[SCALEX]*cosRot*cxSrc + params[SCALEY]*sinRot*cySrc
                 print cyDst - params[SCALEX]*sinRot*cxSrc - params[SCALEY]*cosRot*cySrc

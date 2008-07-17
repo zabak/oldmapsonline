@@ -2,27 +2,36 @@
 # encoding: utf-8
 """
 RMS - Root Mean Squere
-Counting of Root Mean squere for given points
+Counting of Root Mean squere for given points (first argument is filename).
+Affine transformation is expected on the standard input in the form of WorldFile.
 """
 
 import sys, math
+
+
+destSet = []
+sourceSet = []
+
+if len(sys.argv) == 1:
+	print "You have to specify a file with GCPs on the input ('pixel line easting northing' per line)"
+	sys.exit(1)
+
+print sys.argv[1]
+for line in open(sys.argv[1], 'r'):
+    sourceSet.append( map( float, line.split()[:2] ) )
+    destSet.append( map( float, line.split()[2:4] ) )
 
 w = []
 for line in sys.stdin:
     if line.strip():
         w.append(float(line))
 
-destSet = []
-sourceSet = []
-for line in open("gcps.txt", 'r'):
-    destSet.append( map( float, line.split()[:2] ) )
-    sourceSet.append( map( float, line.split()[2:4] ) )
 
 projSet = []
 for x,y in sourceSet:
     p = []
-    p.append( w[4] + w[0]*x + w[1]*y )
-    p.append( w[5] + w[2]*x + w[3]*y )
+    p.append( w[4] + w[0]*x + w[2]*y )
+    p.append( w[5] + w[1]*x + w[3]*y )
     projSet.append( p )
 
 
