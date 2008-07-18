@@ -45,8 +45,11 @@ class Builder {
 	public void setSkew(double skew){
 		((AdvancedAffineBuilder)ab).setConstrain(AdvancedAffineBuilder.SXY, skew);
 	}
-	public void setPhi(double phi){
-		((AdvancedAffineBuilder)ab).setConstrain(AdvancedAffineBuilder.PHI, phi);
+	public void setPhix(double phix){
+		((AdvancedAffineBuilder)ab).setConstrain(AdvancedAffineBuilder.PHIX, phix);
+	}
+	public void setPhiy(double phiy){
+		((AdvancedAffineBuilder)ab).setConstrain(AdvancedAffineBuilder.PHIY, phiy);
 	}
 	
 	public void setTx(double tx){
@@ -102,7 +105,8 @@ class Builder {
 		System.out.println("skew = " + formatter.format(a2g.getSkew()));
 		System.out.println("tx   = " + formatter.format(a2g.getXTranslate()));
 		System.out.println("ty   = " + formatter.format(a2g.getYTranslate()));
-		System.out.println("phi  = " + formatter.format(a2g.getRotation()));
+		System.out.println("phix = " + formatter.format(a2g.getXRotation()));
+		System.out.println("phiy = " + formatter.format(a2g.getYRotation()));
 
 	}
 	public void printStatistics() throws FactoryException{
@@ -130,12 +134,12 @@ class Builder {
 		while ((s = cti.readLine()) != null) {
 		
 			String[] line = s.split(" ");			
-			DirectPosition sp = new DirectPosition2D(null,
-                                                       (new Float(line[2])).floatValue(), 
-                                                       (new Float(line[3])).floatValue());
 			DirectPosition tp = new DirectPosition2D(null,
-					                                   (new Float(line[0])).floatValue(), 
-					                                   (new Float(line[1])).floatValue());
+                                                       (new Float(line[0])).floatValue(), 
+                                                       (new Float(line[1])).floatValue());
+			DirectPosition sp = new DirectPosition2D(null,
+					                                   (new Float(line[2])).floatValue(), 
+					                                   (new Float(line[3])).floatValue());
 			
 			MappedPosition mp = new MappedPosition(sp, tp);
 			mps.add(mp);		
