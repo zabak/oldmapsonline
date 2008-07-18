@@ -3,6 +3,8 @@
  */
 package org.geotools.utils;
 
+import java.io.File;
+
 import org.apache.commons.cli2.Argument;
 import org.apache.commons.cli2.CommandLine;
 import org.apache.commons.cli2.Group;
@@ -12,7 +14,6 @@ import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
 import org.apache.commons.cli2.commandline.Parser;
 import org.apache.commons.cli2.util.HelpFormatter;
-import java.io.File;
 
 
 /**
@@ -93,9 +94,14 @@ public class TransGen {
                 builder.setSkew(skew);
             }
 
-            if (cl.hasOption("--phi")) {
-                double phi = (new Double((String) cl.getValue("--phi")).doubleValue());
-                builder.setPhi(phi);
+            if (cl.hasOption("--phix")) {
+                double phix = (new Double((String) cl.getValue("--phix")).doubleValue());
+                builder.setPhix(phix);
+            }
+            
+            if (cl.hasOption("--phiy")) {
+                double phiy = (new Double((String) cl.getValue("--phiy")).doubleValue());
+                builder.setPhiy(phiy);
             }
 
             if (cl.hasOption("--similar")) {
