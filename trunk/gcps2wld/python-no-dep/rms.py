@@ -2,8 +2,17 @@
 # encoding: utf-8
 """
 RMS - Root Mean Squere
-Counting of Root Mean squere for given points (first argument is filename).
+----------------------
+Counting of Root Mean squere for given points (for given GCPS filename).
 Affine transformation is expected on the standard input in the form of WorldFile.
+
+Created by Klokan Petr Pridal, RMS algorithm described at:
+http://en.wikipedia.org/wiki/Root_mean_square
+
+Development carried out thanks to R&D grant DC08P02OUK006 - Old Maps Online
+(www.oldmapsonline.org) from Ministry of Culture of the Czech Republic
+
+Copyright (c) 2008 OldMapsOnline.org. All rights reserved.
 """
 
 import sys, math
@@ -18,8 +27,8 @@ if len(sys.argv) == 1:
 
 print sys.argv[1]
 for line in open(sys.argv[1], 'r'):
-    sourceSet.append( map( float, line.split()[:2] ) )
-    destSet.append( map( float, line.split()[2:4] ) )
+    destSet.append( map( float, line.split()[:2] ) )
+    sourceSet.append( map( float, line.split()[2:4] ) )
 
 w = []
 for line in sys.stdin:
