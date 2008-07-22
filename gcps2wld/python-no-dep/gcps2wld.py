@@ -6,8 +6,26 @@ gcps2wld.py
 Ground Control Points to WorldFile using Affine Transformation, Affine5
 (without skew) and Similarity.
 
-Created by Klokan Petr Pridal, algorithms comes from MapAnalyst project
-MapAnalyst is written by Bernhard Jenny
+Created by Klokan Petr Pridal, algorithms translated from Java, project
+MapAnalyst - originally written by Bernhard Jenny from ETH Zurich
+(MapAnalyst: src/ika/transformation/ TransformAffine6.java,
+TransformAffine5.java, TransfrormHelmert.java)
+
+Description of the algorithms is available in (Chapter: Affine5, page 19):
+
+Beineke, D. (2001) Verfahren zur Genauigkeitsanalyse für Altkarten.
+Studiengang Geodäsie und Geoinformation. PhD thesis. München,
+Universität der Bundeswehr, 155 pp. [Corrigendum].
+http://www.unibw.de/ipk/karto-en/publications/pubbeineke-en/books/
+docbeineke-en/down1/at_download
+
+Note: More efficient would be usage of 'numpy' python matrix library, but we
+depend on a pure python matrix calculation, because of the limits of the
+Google App Engine hosting, where we intend to use these functions.
+
+Development carried out thanks to R&D grant DC08P02OUK006 - Old Maps Online
+(www.oldmapsonline.org) from Ministry of Culture of the Czech Republic
+
 Copyright (c) 2008 OldMapsOnline.org. All rights reserved.
 """
 
@@ -49,8 +67,8 @@ def main(argv=None):
         destSet = []
         sourceSet = []
         for line in open(options.inputfile, 'r'):
-                sourceSet.append( map( float, line.split()[:2] ) )
-                destSet.append( map( float, line.split()[2:4] ) )
+                destSet.append( map( float, line.split()[:2] ) )
+                sourceSet.append( map( float, line.split()[2:4] ) )
 
         # print(destSet)
         # print(sourceSet)
