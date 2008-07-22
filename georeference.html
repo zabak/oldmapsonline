@@ -39,27 +39,25 @@
 		    OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
 		    OpenLayers.Util.onImageLoadErrorColor = "transparent";	
 
+			//var ZOOMIFY_WIDTH = 7000;
+			//var ZOOMIFY_HEIGHT = 9600;
+			//var zoomify_path = "file:///Users/klokan/klokan/Projects/Thesis/project/image-brno/";
+
+			//var ZOOMIFY_WIDTH = 9665;
+			//var ZOOMIFY_HEIGHT = 9335;
+			//var zoomify_path = "http://www.zoomify.com/images/folders/parisSatellite/";
+
+			var ZOOMIFY_WIDTH = 5100;
+			var ZOOMIFY_HEIGHT = 4200;
+			var zoomify_path = "http://www.zoomify.com/images/folders/ancientMap/";
+
+			var ZOOMIFY_WIDTH = 8001;
+			var ZOOMIFY_HEIGHT = 6943;
+			var zoomify_path = "http://almor.mzk.cz/moll/AA22/0103/";
+
+			var image_filename = "TileGroup0/0-0-0.jpg";
+
 		    function load(){
-
-				//var ZOOMIFY_WIDTH = 7000;
-				//var ZOOMIFY_HEIGHT = 9600;
-				//var zoomify_path = "file:///Users/klokan/klokan/Projects/Thesis/project/image-brno/";
-
-				//var ZOOMIFY_WIDTH = 9665;
-				//var ZOOMIFY_HEIGHT = 9335;
-				//var zoomify_path = "http://www.zoomify.com/images/folders/parisSatellite/";
-
-				var ZOOMIFY_WIDTH = 5100;
-				var ZOOMIFY_HEIGHT = 4200;
-				var zoomify_path = "http://www.zoomify.com/images/folders/ancientMap/";
-
-				var ZOOMIFY_WIDTH = 8001;
-				var ZOOMIFY_HEIGHT = 6943;
-				var zoomify_path = "http://almor.mzk.cz/moll/AA22/0103/";
-
-				var image_filename = "TileGroup0/0-0-0.jpg";
-
-
 
 		        /* Just pixel based view now */
 		        var options = {
@@ -246,7 +244,7 @@
 				var cm = map.getCenter().clone();
 				cm.transform( map.getProjectionObject(), map.displayProjection);
 				resultBox = document.getElementById('result')
-				resultBox.innerHTML += cs.lon+' '+cs.lat+' '+Math.round(cm.lon*1000000000)/1000000000+' '+Math.round(cm.lat*1000000000)/1000000000+'\n';
+				resultBox.innerHTML += Math.round(cm.lon*1000000000)/1000000000+' '+Math.round(cm.lat*1000000000)/1000000000+' '+cs.lon+' '+(ZOOMIFY_HEIGHT-cs.lat)+'\n';
 				resultBox.scrollTop = resultBox.scrollHeight;
 			}
 	    //]]>
