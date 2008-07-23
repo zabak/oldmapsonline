@@ -1,0 +1,54 @@
+#Journals specialized to Maps, Libraries and History
+
+= Journals specialized to Maps, Libraries and History =
+
+Have a look at:
+http://www.maphistory.info/journals.html
+
+=== Imago Mundi ===
+The International Journal for the History of Cartography
+http://www.informaworld.com/smpp/title~db=all~content=t713703011~tab=summary
+
+=== ePerimetron ===
+The international quarterly e-journal on sciences and technologies affined to history of cartography and maps.
+http://www.e-perimetron.org/
+
+===LIBER Quarterly===
+The Journal of European Research Libraries
+http://liber.library.uu.nl/
+
+=== IMCoS Quarterly ===
+International Map Collectors' Society Journal
+http://www.imcos.org/
+
+=== BIMCC ==
+Brussels International Map Collectors' Circle
+http://www.bimcc.org/
+
+= Conferences  =
+
+Have a look at:
+http://www.maphistory.info/confmnu.html
+
+=== ICHC  ===
+International Conferences on the History of Cartography
+http://www.ichc2009.dk/
+
+=== ECDL ===
+European Conference on Research and Advanced Technology for Digital Libraries
+http://www.ecdl2008.org/ http://www.ecdl2009.org/
+
+=== FOSS4G ===
+Free and Open Source Software for Geospetial
+http://foos4g2008.org/
+
+= Workshops =
+
+=== ICA Commission on Digital Technologies in Cartographic Heritage Workshops ===
+http://web.auth.gr/xeee/ICA-Heritage/
+
+=== DEUTSCHE GESELLSCHAFT FÜR KARTOGRAPHIE ===
+http://www.codata-germany.org/Archiving_2008/
+
+=== DigMap Workshops ===
+http://www.digmap.eu/
