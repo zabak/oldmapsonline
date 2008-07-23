@@ -50,5 +50,8 @@ http://web.auth.gr/xeee/ICA-Heritage/
 === DEUTSCHE GESELLSCHAFT FÜR KARTOGRAPHIE ===
 http://www.codata-germany.org/Archiving_2008/
 
+=== Workshop on Geographic Information Retrieval ===
+http://www.geo.unizh.ch/~rsp/gir08/
+
 === DigMap Workshops ===
 http://www.digmap.eu/
