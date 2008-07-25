@@ -1,0 +1,40 @@
+#summary One-sentence summary of this page.
+
+= Tile line component for map search interface =
+
+List of the projects implementing a widget for online selection of the time range, which will be usable for our project search interface.
+
+Keywords: TimeSlider, TimeSlicer, TimeBar, TimeLine
+
+Feel free to contact us in case you know about a project which should be listed here.
+
+== List: ==
+
+*favourite* Javascript library to facilitate using Google Maps with a SIMILE timeline.
+http://code.google.com/p/timemap/
+
+*favourite* Flash based:
+http://polaris.regio.ee/dev_test/
+http://polaris.regio.ee/dev_test/timebar/timeslider
++ http://www.permadi.com/tutorial/flashjscommand/
+
+*favourite* A nice JavaScript-based project with resize feature:
+http://www.dipity.com/
+http://www.dipity.com/user/irivera76/timeline/History_of_the_Internet_1998_Present
+
+Google TimeLine Search:
+http://www.google.com/views?q=napoleon+view%3Atimeline&btnGt=Search
+
+SIMILE TimeLine MIT Project:
+http://simile.mit.edu/timeline/
+
+How to implement such timeline widget...
+http://www.ia-stud.hiof.no/~oyvindeh/moduler/timeline.html
+http://www.scesoh.com/timeline/timeline.php
+
+http://www.mapstraction.com/demo-filters.php
+
+http://ajaxorized.com/introducing-the-sliding-date-picker/
+http://www.ajaxorized.com/dateslider/slider.html
+
+http://www.amazon.com/gp/gsl/search/finder/002-5833738-9104053?%5Fencoding=UTF8&productGroupID=loose%5Fdiamonds
