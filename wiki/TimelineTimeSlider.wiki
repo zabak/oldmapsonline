@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Tile line component for map search interface
 
 = Tile line component for map search interface =
 
@@ -12,6 +12,7 @@ Feel free to contact us in case you know about a project which should be listed 
 
 *favourite* Javascript library to facilitate using Google Maps with a SIMILE timeline.
 http://code.google.com/p/timemap/
+http://www.ushahidi.com/timeline.asp
 
 *favourite* Flash based:
 http://polaris.regio.ee/dev_test/
