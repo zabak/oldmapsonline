@@ -20,7 +20,7 @@ http://polaris.regio.ee/dev_test/timebar/timeslider
 
 *favourite* A nice JavaScript-based project with resize feature:
 http://www.dipity.com/
-http://www.dipity.com/user/irivera76/timeline/History_of_the_Internet_1998_Present
+http://www.dipity.com/user/klokan/timeline/Test_for_OldMapsOnline_org
 
 Google TimeLine Search:
 http://www.google.com/views?q=napoleon+view%3Atimeline&btnGt=Search
