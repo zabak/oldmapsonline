@@ -25,9 +25,9 @@ neznámých\\
 $ d {\bf x} $&$=$&$(dx_1 \ldots dx_k)^T$  & vektor přírůstků přibližných
 hodnot\\
 
-$ F_i(\bf x)$ &&& funkční vztah mezi hledanými $ \bf x$ a měřenými
-veličinami \\
-&&&(v našem případě transformační rovnice)\\
+$ F_i(\bf x)$ &&& funkční vztah mezi hledanými $ \bf x$ \\
+ &&&  a měřenými veličinami (v našem případě\\
+&&& transformační rovnice)\\
 $ l_i$ &&& naměřená zprostředkující veličina \\
 $ v_i$ &&& oprava naměřené zprostředkující veličina \\
 $ \bar{f}_i$ &&& vyrovná hodnota zprostředkující veličiny \\
@@ -53,14 +53,14 @@ $$F_i ({\bf x}_0) +  \left(\frac{F_i}{dx_1}\right)dx_1 +\ldots+\left(\frac{F_i
 
 Po úpravě dostáváme:
 \begin{eqnarray} \label{aaa}
- a_{i1} dx_1 + a_{i2} dx_2 + \ldots + a_{ik} dx_k + F_i ({\bf x_0})-l_i = v_i
+ a_{i1} dx_1 + a_{i2} dx_2 + \ldots + a_{ik} dx_k + F_i ({\bf x_0})-l_i = v_i,
 \end{eqnarray}
 
 kde $i = 1, \ldots ,n$ a  $n$ je počet linearizovaných zprostředkujících rovnic
 oprav a $k$ je počet hledaných neznámých. Výraz $ F_i ( {\bf x_0} )-l_i= L_i$ je
 tzv. absolutní člen.
-
-Výraz \ref{aaa} můžeme zapsat maticově takto:
+\newpage
+Výraz (\ref{aaa}) můžeme zapsat maticově takto:
 
 $${\bf A} d {\bf x} + {\bf L} = {\bf v}, $$
 
@@ -108,7 +108,7 @@ pro vyrovnané neznámé vztah:
 
 Tento způsob byl implementován pro výpočet podobností, afinní a projektivní
 transformace, přičemž konkrétní matice jsou uvedeny v následujících kapitolách.
-Po případ, kdy chceme zavést podmínky pro neznáme je výpočet následující:
+Pro případ, kdy chceme zavést podmínky pro neznám0 je výpočet následující:
 
 Podmínky pro opravy neznámých definujeme pomocí obecného vyjádření:
 
@@ -118,10 +118,10 @@ b_{11} v_1 + \ldots &+ b_{1n} v_n + U_1=0 \\\nonumber
 b_{r1} v_1 + \ldots &+ b_{rn} v_n + U_r=0 \nonumber
 \end{eqnarray}
 
-kde U jsou hodnoty uzávěrů - tzn. rozdíl mezi hodnotou vypočítanou z
+kde $U_{i}$ jsou hodnoty uzávěrů - tzn. rozdíl mezi hodnotou vypočítanou z
 přibližných hodnot a hodnotou požadovanou, která je stanovena podmínkou.
-
-Maticově:
+Koeficienty označené jako $b_{ii}$ tvoří pak matici ${\bf B}$. Můžeme tedy
+psát:
 
 \begin{eqnarray} \label{podminky} 
 {\bf Bv} + \bf{U} = {\bf 0}

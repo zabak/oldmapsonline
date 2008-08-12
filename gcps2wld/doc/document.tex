@@ -11,7 +11,14 @@
 \usepackage[utf8]{inputenc}
 \newcommand{\bt}{\bm}
 %\usepackage{a4wide}
-
+\usepackage{a4wide}
+   \evensidemargin 10 pt      %   Left margin on even-numbered pages.
+   \marginparwidth 1 in       %   Width of marginal notes.
+   \oddsidemargin 0 in      %   Note that 
+   \oddsidemargin = \evensidemargin    
+   \evensidemargin 0 in    
+   \marginparwidth 0.75 in    
+   \textwidth 430 pt%6.375 true in % Width of text line. 
 
 
 \begin{document}
@@ -25,13 +32,14 @@ koeficinetů vybraných 2D transformací}}
 
 \maketitle
 
-\vspace{30 pt}
+\vspace{35 pt}
 
 \tableofcontents
 
 %\chapter{Transformace referenčních souřadnicových systémů v GIS}  
 
 	%\section{Reziduální metody}
+	
 		\include{transformace/vyrovnani}
 		\include{transformace/linearni}
         \include{literatura}
