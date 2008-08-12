@@ -1,7 +1,7 @@
-\subsection{Obecné vyjádření}
+\subsection{Obecné vyjádření lineárních 2D transformací}
 
-V této části se budeme zabývat implementovanou skupinou 2D transformací a
-především způsobem výpočtu transformačního klíče z nadbytečného počtu
+V této části se budeme zabývat implementovanou skupinou lineárních 2D
+transformací a především způsobem výpočtu transformačního klíče z nadbytečného počtu
 identických bodů. Popsány budou:
 
 \begin{itemize}
@@ -9,19 +9,20 @@ identických bodů. Popsány budou:
   \item Afinní transformace
   \item Projektivní transformace
   \item Afinní transformace s podmínkami
+  \item Speciální případ afinní transformace
 \end{itemize}
 
 Obecný výraz pro všechny tyto metody lze napsat pomocí obecného maticového
-vyjádření $x' = P x$, kde
+vyjádření $\bf x' = P x$, kde
 
-$$ x' = \left(
+$$ {\bf x'} = \left(
 \begin{array}{ccc}
 qx'\\
 qy'\\ 
 q\\
 \end{array}
 \right) 
-P = \left(
+{\bf P} = \left(
 \begin{array}{ccc}
 p_{00}  &   p_{10}  &   p_{20}  \\
 p_{01}  &   p_{11}  &   p_{12} \\
@@ -29,14 +30,15 @@ p_{02} &    p_{12}  &    1
 \end{array}
  \right),
   \hspace{0.5 cm} 
- x = 
+ {\bf x} = 
  \left(
 \begin{array}{ccc}
 x\\
 y\\ 
 1\\
 \end{array}
-\right) ,$$ 
+\right) ,
+$$ 
 
 přičemž $x', y'$ jsou souřadnice v cílové soustavě, $x, y$ ve výchozí, 
 $p_{nn}$  jsou transformační koeficienty a $q$ je pomocný parametr.
@@ -50,7 +52,7 @@ všech vztahů pro tyto metody.
 Pro konečný výpočet koeficientů lze použít algoritmus vyrovnání
 zprostředkujících měření (viz část \ref{kapvyr}). Cílem následujících sekcí
 je tedy především popsat tvar matic ${\bf A}$, $d{\bf x}$ a ${\bf L}$. Pro konečný
-transformačních parametrů pak stačí použít vzorec \label{ata}.
+transformačních parametrů pak stačí použít vzorec (\ref{ata}).
 
 \subsection{Podobnostní transformace}
 \label{vyrpod}
@@ -97,7 +99,7 @@ d
 \right) $$
 
 Potom matice ${\bf A}$ má tvar:
-$$ 
+\begin{eqnarray}\label{podA}
 {\bf A}=
 \left(
 \begin{array}{cccc}
@@ -109,11 +111,10 @@ y_{1} &  x_{1} & 0 & 1\\
 y_{n} &  x_{n} & 0 & 1\\
 \end{array}
 \right)
-$$
-
+\end{eqnarray}
 
 Vzhledem k volbě nulových přibližných hodnot můžeme psát $F_i(x_0) = 0$ a tedy
-(dle \ref{L}) má matice ${\bf L}$ tvar:
+(dle \ref{L}) matice ${\bf L}$ mátvar:
 \footnote[1]{
 V implementaci tohoto způsobu bylo znaménko matice $L$ vytknuta a uplatněno až
 ve vztahu \ref{ata}.}
@@ -132,8 +133,8 @@ y'_{n}
 \end{eqnarray}
 
 
-Použitím vztahu \ref{ata} dostáváme tak přímo vyrovnané neznámé bez nutnosti
-další iterace. Důvodem je, lineární vztah mezi neznámými a měřenými veličinami.
+Použitím vztahu (\ref{ata}) dostáváme tak přímo vyrovnané neznámé bez nutnosti
+další iterace. Důvodem je lineární vztah mezi neznámými a měřenými veličinami.
 
 \subsection{Afinní transformace}
 \label{vyraf}
@@ -180,7 +181,7 @@ f
 
 Potom matice ${\bf A}$ má tvar:
 
-$$
+\begin{eqnarray}\label{afineA}
 {\bf A}=
 \left(
 \begin{array}{cccccc}
@@ -192,14 +193,14 @@ x_{n} & y_{n} & 1  &  0    & 0      & 0 \\
    0  & 0     & 0  & x_{n} &  x_{n} & 1
 \end{array}
 \right)
-$$
+\end{eqnarray}
 
 Matice ${\bf L}$ je pak shodná jako u podobností transformace viz vztah
 \ref{podl}. Použitím vztahu \ref{ata} dostáváme tak přímo vyrovnané
 neznámé.
 
-Pro otimalizaci výpočtu lze matici $A$ zjednodšit a počítat neznáme nezmámé
-$a,b,c$ a $d,e,f$ odděleně. Matice $A$  má pak tvar:
+Pro optimalizaci výpočtu lze matici ${\bf A}$ zjednodušit a počítat neznáme
+$a,b,c$ a $d,e,f$ odděleně. Matice ${\bf A}$  má pak tvar:
 
 $$
 {\bf A}=
@@ -250,7 +251,7 @@ y'_{n}
 \right) 
 \end{eqnarray}
 
-\subsection{Afinni transformace s podmínkami}
+\subsection{Afinní transformace s podmínkami}
 
 Jednou z často používaných forem afinní transformace je varianta, kdy
 parametr zkosení je roven nule. Tento způsob se často využívá právě při
@@ -270,9 +271,8 @@ je výchozí vztah afinní transformace tento:
 \begin{eqnarray}
 \begin{array}{ccccccc}
 \label{afinni}
-fx_{(x,y)}: x'&=& (q  \sin{\alpha} + S_{x} \cos{\alpha})&x& + (q  
-\cos{(\alpha)} - S_{x}\sin{(\alpha)})&y + T_x\\
-fy_{(x,y)}: y'&=&S_{y} \sin{(\alpha)}&x& - S_{y}\cos{(\alpha)}&y + T_y
+x'&=&  S_{x} \cos{\alpha_{x}}& -&S_{y} \sin{\alpha_{y}} &+& T_{x}\\
+y'&=&  S_{x} \sin{\alpha_{x}}& +&S_{y} \cos{\alpha_{y}} &+& T_{y}\\
 \end{array}
 \end{eqnarray}
 
@@ -285,12 +285,13 @@ označení je:
 \begin{tabular}{ll}
 $S_{x}$  & měřítko ve směru osy X, \\
 $S_{y}$  & měřítko ve směru osy Y, \\
-$q$     & zkosení, \\
-$\alpha$ & úhel rotace, \\
+$\alpha_{x}$ & úhel rotace pro osu $x$, \\
+$\alpha_{y}$ & úhel rotace pro osu $y$, \\
 $T_{x}$  & posun ve směru osy X, \\
 $T_{y}$  & posun ve směru osy Y. \\
 \end{tabular}
 \end{table}
+Parametr $q$ vyjadřující zkosení je potom $q = \alpha_{x} - \alpha_{y}$
 
 Pro další postup vyrovnání byla matice $\bf{dx}$ neznámých zvolena takto:
 
@@ -300,8 +301,8 @@ d {\bf x} = \left(
 \begin{array}{c}
 dS_{x} \\
 dS_{y} \\
-dq \\
-d\alpha \\
+\alpha_{x} \\
+\alpha_{y} \\
 dT_{x} \\
 dT_{y}
 \end{array}
@@ -311,53 +312,55 @@ dT_{y}
 Na základě této volby byla odvozena matice $\bf A$.  Jednotlivé derivace  potom
 jsou ($i = 1, \ldots, n$ je počet identických bodů):
 
-$$ 
+\begin{eqnarray}
 \begin{array}{lll}
- \left(\frac{dx}{S_x}\right)_i &=& \cos{(\alpha)}x_i - \sin{(\alpha)}y_i\\
- \left(\frac{dy}{S_x}\right)_i &=& 0 \\
- \left(\frac{dx}{S_y}\right)_i &=& 0 \\
- \left(\frac{dy}{S_y}\right)_i &=&\sin{(\alpha)}x_i + \cos{(\alpha)}y_i\\
- \left(\frac{dx}{q}\right)_i &=&\sin{(\alpha)}x_i + \cos{(\alpha)}y_i\\
- \left(\frac{dy}{q}\right)_i &=& 0 \\
- \left(\frac{dx}{\alpha}\right)_i &=& (q \cos{(\alpha)}x_i - S_{x} 
- \sin{(\alpha)} x) - \\ 
-                                & -&(q \sin{(\alpha)} y_i - S_{x}
-                                \cos{(\alpha)} y)
-                                 \\                
- \left(\frac{dy}{\alpha} \right)_i &=& S_{y} \cos{(\alpha)}x_i) - (S_{y}
- \sin{(\alpha)} y_i \\ 
+ \left(\frac{dx}{S_x}\right)_i &=& \cos{\alpha_{x}} x_i\\
+ \left(\frac{dx}{S_y}\right)_i &=& -\sin{\alpha_{y}} y_i\\
+ \left(\frac{dx}{\alpha_{x}}\right)_i &=& -S_{x} \sin{\alpha_{x}}  x_i\\
+ \left(\frac{dx}{\alpha_{y}}\right)_i &=& -S_{y} \cos{\alpha_{y}}  y_i\\
  \left(\frac{dx}{T_x}\right)_i &=& 1 \\
- \left(\frac{dy}{T_x}\right)_i &=& 0 \\
  \left(\frac{dx}{T_y}\right)_i &=& 0 \\
+\end{array}
+\end{eqnarray}
+
+\begin{eqnarray}
+\begin{array}{lll}
+ \left(\frac{dy}{S_x}\right)_i &=& \sin{\alpha_{x}} x_i\\
+ \left(\frac{dy}{S_y}\right)_i &=& \cos{\alpha_{y}} y_i\\
+ \left(\frac{dy}{\alpha_{x}}\right)_i &=& S_{x} \cos{\alpha_{x}}  x_i\\
+ \left(\frac{dy}{\alpha_{y}}\right)_i &=& -S_{y} \sin{\alpha_{y}}  y_i\\
+ \left(\frac{dy}{T_x}\right)_i &=& 0 \\
  \left(\frac{dy}{T_y}\right)_i &=& 1 \\
 \end{array}
-$$
+\end{eqnarray}
 
 Matice ${\bf A}$ má tedy tvar:
 
-$$ {\bf A}= \left(
+\begin{eqnarray}\label{afine2A}
+ {\bf A}= \left(
 \begin{array}{cccccc}
  \left(\frac{dx}{S_x}\right)_1  &  \left(\frac{dx}{S_y}\right)_1 &
- \left(\frac{dx}{q}\right)_1    & \left(\frac{dx}{\alpha}\right)_1 &  
+ \left(\frac{dx}{\alpha_{x}}\right)_1    & \left(\frac{dx}{\alpha_{y}}\right)_1 &  
  \left(\frac{dx}{T_x}\right)_1  &  \left(\frac{dx}{T_y}\right)_1 \\
  &\vdots& & &\vdots& \\ 
   \left(\frac{dx}{S_x}\right)_n &  \left(\frac{dx}{S_y}\right)_n &
- \left(\frac{dx}{q}\right)_n    & \left(\frac{dx}{\alpha}\right)_n &  
+ \left(\frac{dx}{\alpha_{x}}\right)_n    & \left(\frac{dx}{\alpha_{y}}\right)_n &  
  \left(\frac{dx}{T_x}\right)_n  &  \left(\frac{dx}{T_y}\right)_n \\ 
    \left(\frac{dy}{S_x}\right)_1 &  \left(\frac{dy}{S_y}\right)_1 &
- \left(\frac{dy}{q}\right)_1    & \left(\frac{dy}{\alpha}\right)_1 &  
+ \left(\frac{dy}{\alpha_{x}}\right)_1    & \left(\frac{dy}{\alpha_{y}}\right)_1 &  
  \left(\frac{dy}{T_x}\right)_1  &  \left(\frac{dy}{T_y}\right)_1 \\
   &\vdots& & &\vdots& \\
   \left(\frac{dy}{S_x}\right)_n &  \left(\frac{dy}{S_y}\right)_n &
- \left(\frac{dy}{q}\right)_n    & \left(\frac{dy}{\alpha}\right)_n &  
+ \left(\frac{dy}{\alpha_{x}}\right)_n    & \left(\frac{dy}{\alpha_{y}}\right)_n &  
  \left(\frac{dy}{T_x}\right)_n  &  \left(\frac{dy}{T_y}\right)_n 
 \end{array}
-\right) $$
+\right) 
+\end{eqnarray}
 
-Zbývá ještě naplnit matici ${\bf L}$. Dle vztahů \ref{L} a \ref{afinni} a
-můžeme psát:
+Zbývá ještě naplnit matici ${\bf L}$. Dle vztahů (\ref{L}) a (\ref{afinni}) můžeme psát:
 
-\begin{eqnarray} \nonumber
+\begin{eqnarray} 
+\label{affine2L}
 {\bf L}= \left(
 \begin{array}{c}
    fx({\bf x_0}) - x'_1  \\    
@@ -367,33 +370,34 @@ můžeme psát:
       \vdots  \\ 
    fy({\bf x_0}) - y'_n\\
 \end{array}
-\right)
+\right),
 \end{eqnarray}
 
 kde ${\bf x_0}$ je vektor přibližných hodnot neznámých.
 
 Pro zařazení podmínek do vyrovnání je ještě nutné určit tvar matice $\bf B$ a  $\bf U$.
-Chceme-li např. definovat podmínku, že parametr zkosení $q$ má být roven nule
-bude rovnice \ref{podminky} mít tento tvar:
+Chceme-li např. definovat podmínku, že parametr zkosení $q$ má být roven
+(tzn. musí platit $\alpha_{x} - \alpha_{y} = 0 $) bude rovnice
+(\ref{podminky}) mít tento tvar:
 
-$$ v_q + (-q_0) = 0$$
+$$ v_\alpha{x} + (-q_0) = 0$$
 Matice $\bf B$ bude mít pak tvar (vzhledem ke vztahu (\ref{dxafinni})):
 
-$$ {\bf B} = \left(0,0,1,0,0,0\right) $$ 
+$$ {\bf B} = \left(0,0,-1,1,0,0\right) $$ 
 
-Chceme-li aby parametr $q$ měl po vyrovnání hodnotu $k = 0$ bude matice ${\bf
-U}$ mít tvar:
+Chceme-li aby parametr zkosení $q$ měl po vyrovnání hodnotu $q = 0$ bude matice 
+${\bf U}$ mít tvar:
 
 $$
 \begin{array}{c}
 {\bf U} = \left(
--q_0 + k
+\alpha{x}_0 -\alpha{y}_0
 \right)
-\end{array}
+\end{array},
 $$ 
 
 kde $q_0$ je přibližná hodnota parametru $q$. Výsledné opravy pak dostaneme
-pomocí vzorce \ref{vyropr}. Máme-li k dispozici odpovídající přibližné hodnoty
+pomocí vzorce (\ref{vyropr}). Máme-li k dispozici odpovídající přibližné hodnoty
 můžeme opravy počítat iterativně. Přibližné hodnoty lze získat např. výpočtem
 afinní transformace bez podmínek jak je popsáno v části \ref{vyraf}.
 
@@ -442,7 +446,7 @@ h
 \right) $$
 
 Potom matice ${\bf A}$ má tvar:
-$$
+\begin{eqnarray}\label{projA}
 {\bf A} = 
 \left(
 \begin{array}{cccccccc}
@@ -454,17 +458,17 @@ x_{n} & y_{n} & 1  &  0    & 0      & 0 & -x'x & -x'y \\
  0    & 0     & 0  &  x_{n} & y_{n} & 1 & -x'x & -x'y \\
 \end{array}
 \right)
-$$ 
+\end{eqnarray}
 
 Matice ${\bf L}$ je pak shodná jako u podobností transformace viz vztah
-\ref{podl}. Použitím vztahu \ref{ata} dostáváme tak opět přímo vyrovnané
-neznámé. Výpočet lze opět optilazovat odděleným výpočtem pro koeficienty
-obsažené v rovnici pro výpočet $x$ a $y$.
+(\ref{podl}). Použitím vztahu (\ref{ata}) dostáváme tak opět přímo vyrovnané
+neznámé.
 
 \subsection{Speciální případy afinní transformace}
 
 V této části bude popsáno odvození transformace pří které dochází ke změně
-měřítek v obou směrech a k posunu.
+měřítek v obou směrech a k posunu. Na rozdíl od afinní transformace tedy není
+uplatněni zkosení a rotace.
 
 Použijeme-li ve vztahu (\ref{afinni}) nulové koeficienty pro stočení získáme
 transformační rovnici ve tvaru: $$
@@ -505,7 +509,7 @@ d
 \right) $$
 
 Potom matice ${\bf A}$ má tvar:
-$$ 
+\begin{eqnarray}\label{specA}
 {\bf A}=
 \left(
 \begin{array}{cccc}
@@ -517,10 +521,10 @@ x_{n} & 1 & 0 & 0\\
 0 &  0 & y_{n} & 1\\
 \end{array}
 \right)
-$$
+\end{eqnarray}
 
 Výsledný postup výpočtu neznámých je shodný s výpočtem afinní transformace. 
-Použitím vztahu \ref{ata} dostáváme opět přímo vyrovnané
+Použitím vztahu (\ref{ata}) dostáváme opět přímo vyrovnané
 neznámé. Pro optimalizaci výpočtu je možné matici ${\bf A}$ opět rozdělit a
 počítat koeficienty odděleně. Na rozdíl od afinní transformace však
 nedostaneme pro obě skupiny koeficientů stejnou matici ${\bf A}$.
