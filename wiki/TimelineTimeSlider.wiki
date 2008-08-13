@@ -10,37 +10,47 @@ Feel free to contact us in case you know about a project which should be listed 
 
 == List: ==
 
-*favourite* Flash based:
-http://polaris.regio.ee/dev_test/
-http://polaris.regio.ee/dev_test/timebar/timeslider
-+ http://www.permadi.com/tutorial/flashjscommand/
 
-*favourite* A nice JavaScript-based project with resize feature:
-http://www.dipity.com/
-http://www.dipity.com/user/klokan/timeline/Test_for_OldMapsOnline_org
+  * *favourite* Dipity.com - a nice JavaScript-based project with resize feature:
+  http://www.dipity.com/user/klokan/timeline/Test_for_OldMapsOnline_org
 
-*favourite* Javascript library to facilitate using Google Maps with a SIMILE timeline.
-http://code.google.com/p/timemap/
-http://www.ushahidi.com/timeline.asp
+  * *favourite* Flash based (useful with http://www.permadi.com/tutorial/flashjscommand/):
+  http://polaris.regio.ee/dev_test/timebar/timeslider
 
-Google TimeLine Search:
-http://www.google.com/views?q=napoleon+view%3Atimeline&btnGt=Search
+  http://polaris.regio.ee/dev_test/
 
-SIMILE TimeLine MIT Project:
-http://simile.mit.edu/timeline/
+  * *favourite* Javascript library to facilitate using Google Maps with a SIMILE timeline: http://code.google.com/p/timemap/
+  http://www.ushahidi.com/timeline.asp
 
-Another examples:
-http://www.mapstraction.com/demo-filters.php
+  * Google TimeLine Search:
+  http://www.google.com/views?q=napoleon+view%3Atimeline&btnGt=Search
 
-http://ajaxorized.com/introducing-the-sliding-date-picker/
-http://www.ajaxorized.com/dateslider/slider.html
+  * SIMILE TimeLine MIT Project:
+  http://simile.mit.edu/timeline/
 
-http://www.amazon.com/gp/gsl/search/finder/002-5833738-9104053?%5Fencoding=UTF8&productGroupID=loose%5Fdiamonds
+=== Another examples: ===
 
-How to implement such timeline widget...
-http://www.ia-stud.hiof.no/~oyvindeh/moduler/timeline.html
-http://www.scesoh.com/timeline/timeline.php
+  * http://www.mapstraction.com/demo-filters.php
 
-A nice timeline is implemented in TimeMap.net project (live for example at: http://ecaimaps.berkeley.edu/clearinghouse/ or http://timemap.mzk.cz/).
+  * http://ajaxorized.com/introducing-the-sliding-date-picker/
+  http://www.ajaxorized.com/dateslider/slider.html
 
-Google Earth has support for time as well. The time line looks like: http://www.gearthblog.com/blog/archives/2006/09/google_earth_4_time.html
+  * http://www.amazon.com/gp/gsl/search/finder/002-5833738-9104053?%5Fencoding=UTF8&productGroupID=loose%5Fdiamonds
+
+
+== Applications using timeline: ==
+
+  * *TimeMap.net* project (http://www.timemap.net/)
+  http://ecaimaps.berkeley.edu/clearinghouse/
+
+  http://timemap.mzk.cz/
+
+  * *Google Earth* has support for time line as well. The time line looks like:
+  http://nsidc.org/data/virtual_globes/timelines.html
+
+  http://www.gearthblog.com/blog/archives/2006/09/google_earth_4_time.html
+
+== How to implement web timeline widget... ==
+
+  * http://www.ia-stud.hiof.no/~oyvindeh/moduler/timeline.html
+  http://www.scesoh.com/timeline/timeline.php
