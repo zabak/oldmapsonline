@@ -1,6 +1,4 @@
 #labels Featured
-#Tileline/Timeslider component for map search interface
-
 = Tileline/Timeslider component for map search interface =
 
 List of the projects implementing a widget for online selection of the time range, which will be usable for our project search interface.
