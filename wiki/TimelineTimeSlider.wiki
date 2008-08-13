@@ -9,24 +9,48 @@ Keywords: TimeSlider, TimeSlicer, TimeBar, TimeLine, Time Range Selection
 
 Feel free to contact us in case you know about a project which should be listed here.
 
-== List: ==
+== Google TimeLine Search ==
 
-  * *Google TimeLine Search* - more static, but userfriendly
-  http://www.google.com/views?q=napoleon+view%3Atimeline&btnGt=Search
+more static, but user friendly.
 
-  * *Flash based TimeSlider* (useful with http://www.permadi.com/tutorial/flashjscommand/):
-  http://polaris.regio.ee/dev_test/timebar/timeslider
+http://www.google.com/views?q=napoleon+view%3Atimeline&btnGt=Search
 
-  http://polaris.regio.ee/dev_test/
+http://oldmapsonline.googlecode.com/svn/wiki/google-timeline-search.png
 
-  * *DateSlider* - JavaScript Based Date Picker: http://code.google.com/p/dateslider/
-  http://www.ajaxorized.com/dateslider/slider.html
+== Flash based TimeSlider ==
 
-  * *TimeMap Javascript library* http://code.google.com/p/timemap/ using Google Maps with a SIMILE timeline (http://simile.mit.edu/timeline/):
-  http://www.ushahidi.com/timeline.asp
+For javascript useful with http://www.permadi.com/tutorial/flashjscommand/:
 
-  * *Dipity.com* - a nice JavaScript-based project with resize feature:
-  http://www.dipity.com/user/klokan/timeline/Test_for_OldMapsOnline_org
+http://polaris.regio.ee/dev_test/timebar/timeslider
+
+http://polaris.regio.ee/dev_test/
+
+http://oldmapsonline.googlecode.com/svn/wiki/flash-timeslider.png
+
+==  DateSlider ==
+
+JavaScript Based Date Picker: http://code.google.com/p/dateslider/
+
+http://www.ajaxorized.com/dateslider/slider.html
+
+http://oldmapsonline.googlecode.com/svn/wiki/dateslider.png
+
+== TimeMap Javascript library ==
+
+http://code.google.com/p/timemap/ using Google Maps with a SIMILE timeline (http://simile.mit.edu/timeline/):
+
+http://www.ushahidi.com/timeline.asp
+
+http://oldmapsonline.googlecode.com/svn/wiki/simile-timeline.png
+
+
+== Dipity.com ==
+
+A nice JavaScript-based project with timeline supporting resize:
+
+http://www.dipity.com/user/klokan/timeline/Test_for_OldMapsOnline_org
+
+http://oldmapsonline.googlecode.com/svn/wiki/dipity.png
 
 === Another examples: ===
 
