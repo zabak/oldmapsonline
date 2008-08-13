@@ -5,7 +5,7 @@
 
 List of the projects implementing a widget for online selection of the time range, which will be usable for our project search interface.
 
-Keywords: TimeSlider, TimeSlicer, TimeBar, TimeLine, Time Range Selection
+Keywords: timeslider, timeslicer, timebar, timeline, time range selection
 
 Feel free to contact us in case you know about a project which should be listed here.
 
@@ -27,7 +27,7 @@ http://polaris.regio.ee/dev_test/
 
 http://oldmapsonline.googlecode.com/svn/wiki/flash-timeslider.png
 
-==  DateSlider ==
+==  Dateslider ==
 
 JavaScript Based Date Picker: http://code.google.com/p/dateslider/
 
@@ -35,7 +35,7 @@ http://www.ajaxorized.com/dateslider/slider.html
 
 http://oldmapsonline.googlecode.com/svn/wiki/dateslider.png
 
-== TimeMap Javascript library ==
+== Timemap Javascript library ==
 
 http://code.google.com/p/timemap/ using Google Maps with a SIMILE timeline (http://simile.mit.edu/timeline/):
 
@@ -60,7 +60,7 @@ http://oldmapsonline.googlecode.com/svn/wiki/dipity.png
 
 == Applications using timeline: ==
 
-  * *TimeMap.net* project (http://www.timemap.net/)
+  * *Timemap.net* project (http://www.timemap.net/)
   http://ecaimaps.berkeley.edu/clearinghouse/
 
   http://timemap.mzk.cz/
