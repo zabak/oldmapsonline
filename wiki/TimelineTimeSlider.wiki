@@ -1,3 +1,4 @@
+#labels Featured
 #Tileline/TimeSlider component for map search interface
 
 = Tileline/TimeSlider component for map search interface =
@@ -18,21 +19,20 @@ Feel free to contact us in case you know about a project which should be listed 
 
   http://polaris.regio.ee/dev_test/
 
-  * *Dipity.com* - a nice JavaScript-based project with resize feature:
-  http://www.dipity.com/user/klokan/timeline/Test_for_OldMapsOnline_org
+  * *DateSlider* - JavaScript Based Date Picker: http://code.google.com/p/dateslider/
+  http://www.ajaxorized.com/dateslider/slider.html
 
   * *TimeMap Javascript library* http://code.google.com/p/timemap/ using Google Maps with a SIMILE timeline (http://simile.mit.edu/timeline/):
   http://www.ushahidi.com/timeline.asp
 
+  * *Dipity.com* - a nice JavaScript-based project with resize feature:
+  http://www.dipity.com/user/klokan/timeline/Test_for_OldMapsOnline_org
+
 === Another examples: ===
-
-  * http://www.mapstraction.com/demo-filters.php
-
-  * http://ajaxorized.com/introducing-the-sliding-date-picker/
-  http://www.ajaxorized.com/dateslider/slider.html
 
   * http://www.amazon.com/gp/gsl/search/finder/002-5833738-9104053?%5Fencoding=UTF8&productGroupID=loose%5Fdiamonds
 
+  * http://www.mapstraction.com/demo-filters.php
 
 == Applications using timeline: ==
 
