@@ -4,7 +4,7 @@
 
 List of the projects implementing a widget for online selection of the time range, which will be usable for our project search interface.
 
-Keywords: TimeSlider, TimeSlicer, TimeBar, TimeLine
+Keywords: TimeSlider, TimeSlicer, TimeBar, TimeLine, Time Range Selection
 
 Feel free to contact us in case you know about a project which should be listed here.
 
@@ -40,3 +40,7 @@ http://www.amazon.com/gp/gsl/search/finder/002-5833738-9104053?%5Fencoding=UTF8&
 How to implement such timeline widget...
 http://www.ia-stud.hiof.no/~oyvindeh/moduler/timeline.html
 http://www.scesoh.com/timeline/timeline.php
+
+A nice timeline is implemented in TimeMap.net project (live for example at: http://ecaimaps.berkeley.edu/clearinghouse/ or http://timemap.mzk.cz/).
+
+Google Earth has support for time as well. The time line looks like: http://www.gearthblog.com/blog/archives/2006/09/google_earth_4_time.html
