@@ -1,7 +1,7 @@
 #labels Featured
-#Tileline/TimeSlider component for map search interface
+#Tileline/Timeslider component for map search interface
 
-= Tileline/TimeSlider component for map search interface =
+= Tileline/Timeslider component for map search interface =
 
 List of the projects implementing a widget for online selection of the time range, which will be usable for our project search interface.
 
@@ -9,7 +9,7 @@ Keywords: TimeSlider, TimeSlicer, TimeBar, TimeLine, Time Range Selection
 
 Feel free to contact us in case you know about a project which should be listed here.
 
-== Google TimeLine Search ==
+== Google Timeline Search ==
 
 more static, but user friendly.
 
@@ -17,7 +17,7 @@ http://www.google.com/views?q=napoleon+view%3Atimeline&btnGt=Search
 
 http://oldmapsonline.googlecode.com/svn/wiki/google-timeline-search.png
 
-== Flash based TimeSlider ==
+== Flash based Timeslider ==
 
 For javascript useful with http://www.permadi.com/tutorial/flashjscommand/:
 
