@@ -29,7 +29,7 @@ http://oldmapsonline.googlecode.com/svn/wiki/flash-timeslider.png
 
 ==  Dateslider ==
 
-JavaScript Based Date Picker: http://code.google.com/p/dateslider/
+Javascript Based Date Picker: http://code.google.com/p/dateslider/
 
 http://www.ajaxorized.com/dateslider/slider.html
 
@@ -46,7 +46,7 @@ http://oldmapsonline.googlecode.com/svn/wiki/simile-timeline.png
 
 == Dipity.com ==
 
-A nice JavaScript-based project with timeline supporting resize:
+A nice Javascript-based project with timeline supporting resize:
 
 http://www.dipity.com/user/klokan/timeline/Test_for_OldMapsOnline_org
 
