@@ -18,8 +18,7 @@ http://www.alexandria.ucsb.edu/public-documents/metadata/index.html
 
   * OAI-PMH (harvesting in different metadata formats, always DublinCore).
 
-  * OpenGIS Catalogue Service (http://www.opengeospatial.org/standards/cat)
-defines remote query/filtering language
+  * OpenGIS Catalogue Service (http://www.opengeospatial.org/standards/cat) defines remote query/filtering language
 
   interesting part: *Catalogue Service for Web (CSW)* based on HTTP/SOAP (WSDL available) other protocol binding are for Z39.50, SRW/SRU and for CORBA/IIOP.
 
