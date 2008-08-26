@@ -1,3 +1,4 @@
+#labels Featured
 = Metadata and old maps =
 
 = Standards for store/exchange =
