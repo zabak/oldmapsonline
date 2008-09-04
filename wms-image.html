@@ -14,8 +14,8 @@
         function init(){
 			
 	       var options = {
-	            // maxExtent: new OpenLayers.Bounds(0, -8241, 14781, 0),
-	            maxExtent: new OpenLayers.Bounds(0, -7682, 9474, 0),
+	            maxExtent: new OpenLayers.Bounds(0, -8241, 14781, 0),
+	            // maxExtent: new OpenLayers.Bounds(0, -7682, 9474, 0),
 				projection: "none",
 				maxResolution: 'auto',
 				numZoomLevels: 10,
@@ -24,15 +24,20 @@
 	
            map = new OpenLayers.Map( 'map', options );
  
-            layer = new OpenLayers.Layer.WMS(
+            layer = new OpenLayers.Layer.MapServer(
                 "Image as WMS",
-                "http://archivnimapy.cuzk.cz/cgi-bin/mapserv.exe?",
-                { 	mode: 'map	',
-   					// map: 'd:/wwwdata/sbirka_I/I-1-013/I-1-013.map',
-					map: 'd:/wwwdata/topo/4357/4357-001.map',
-					layers: 'co_rastr' },
-                { //singleTile: true } // 
-					buffer: 0, gutter: 15}
+                "http://archivnimapy.cuzk.cz/cgi-bin/mapserv.exe",
+                {	mode: 'map',
+			map: 'd:/wwwdata/sbirka_I/I-1-013/I-1-013.map',
+			// map: 'd:/wwwdata/topo/4357/4357-001.map',
+			map_imagetype: 'jpeg',
+		},
+                {	//singleTile: true
+			layers: 'co_rastr' 
+		},
+		{	buffer: 0,
+			gutter: 15
+		}
             );
             map.addLayer(layer);
 			map.zoomToMaxExtent();
