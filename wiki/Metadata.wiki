@@ -66,3 +66,9 @@ http://geonetwork-opensource.org/documentation/manual/geonetwork-manual/Manual.p
 FGDC/GEODEX Metadata Editor saving records in MySQL database. Developed from "Building a Globally Distributed Historical Sheet Map Set" grant. It also contains GDAL2Tiles binary for cutting map files into Google Earth tiles.
 
 http://imlsmap.lib.uconn.edu/product.html 
+
+=== ‡biblios.org | Open Source Cataloging ===
+
+Online MARC Editor with support for OAI, Z39.50, ... Possibility to use the project as online service.
+
+http://biblios.org/
