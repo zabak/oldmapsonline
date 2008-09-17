@@ -72,3 +72,19 @@ http://imlsmap.lib.uconn.edu/product.html
 Online MARC Editor with support for OAI, Z39.50, ... Possibility to use the project as online service.
 
 http://biblios.org/
+
+=== Koha (Free Library System) ===
+
+Koha is an open-source integrated library system (ILS).
+
+http://www.koha.org/
+
+=== Other Library Systems ===
+
+Evergreen: http://www.open-ils.org/
+
+OpenBiblio: http://sourceforge.net/projects/obiblio/
+
+PMB (PhpMyBibli): http://www.sigb.net/
+
+PML (PhpMyLibrary): http://phpmylibrary.com/pml/
