@@ -7,6 +7,7 @@ http://www.maphistory.info/journals.html
 
 === Imago Mundi ===
 The International Journal for the History of Cartography
+
 http://www.informaworld.com/smpp/title~db=all~content=t713703011~tab=summary
 
 === ePerimetron ===
@@ -32,15 +33,24 @@ http://www.maphistory.info/confmnu.html
 
 === ICHC  ===
 International Conferences on the History of Cartography
-http://www.ichc2009.dk/
+
+http://www.ichc2009.dk/ Copenhagen, Denmark, JULY 12th-17th 2009
 
 === ECDL ===
 European Conference on Research and Advanced Technology for Digital Libraries
-http://www.ecdl2008.org/ http://www.ecdl2009.org/
+http://www.ecdl2008.org/ - Cape Town
+
+http://www.ecdl2009.eu/ - Corfu, Greece, Sep. 27 - Oct. 02, 2009
 
 === FOSS4G ===
 Free and Open Source Software for Geospetial
 http://foos4g2008.org/
+
+FOSS4G 2009 - Sydney 17-21 November 2009
+
+=== European Geosciences Union (EGU) ===
+EGU 2009 - Vienna - G10 European cartographic heritage - http://www.egu.eu/
+http://www.cosis.net/members/meetings/skeleton/session_information.php?p_id=361&s_id=6432
 
 = Workshops =
 
