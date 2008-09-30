@@ -41,18 +41,18 @@ http://www.ichc2009.dk/ Copenhagen, Denmark, JULY 12th-17th 2009
 
 === ECDL ===
 European Conference on Research and Advanced Technology for Digital Libraries
-http://www.ecdl2008.org/ - Cape Town
+http://www.ecdl2008.org/
 
 http://www.ecdl2009.eu/ - Corfu, Greece, Sep. 27 - Oct. 02, 2009
 
 === FOSS4G ===
 Free and Open Source Software for Geospetial
-http://foos4g2008.org/
+http://foss4g2008.org/ - Cape Town
 
 FOSS4G 2009 - Sydney 17-21 November 2009
 
 === ICC - International Cartography Conference ===
-http://www.icc2009.cl/-  November 2009, Santiago de Chile
+http://www.icc2009.cl/ -  November 2009, Santiago de Chile
 
 === ICA Symposium on Cartography for Central ad Eastern Europe ===
 http://cartography.tuwien.ac.at/cee2009/ - February 2009, Vienna
