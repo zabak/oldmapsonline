@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <style type="text/css">
+        html, body { width: 100%; height: 100%; border: 0; padding:0; margin:0; }
+        #map { width: 100%; height: 100%; }
+    </style>	
+    <title>MapAnalyst Online - Raster Overlay</title>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script type="text/javascript">
+        var map;
+        function init(){
+			IMAGE_WIDTH = 1600;
+			IMAGE_HEIGHT = 1018;
+			OVERLAY_WIDTH = 982;
+			OVERLAY_HEIGHT = 798;
+			image_bounds = new OpenLayers.Bounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+			
+            map = new OpenLayers.Map('map', {
+				controls: [],
+	 			maxExtent: new OpenLayers.Bounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT),
+	            numZoomLevels: 8,
+			});
+
+            var oldmap = new OpenLayers.Layer.Image(
+                                'Old Map',
+                                'old_map.jpg',
+                                new OpenLayers.Bounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT),
+                                new OpenLayers.Size(IMAGE_WIDTH/10, IMAGE_HEIGHT/10),
+                                {});
+            var distortiongrid = new OpenLayers.Layer.Image(
+                                'Distortion Grid',
+                                'distortiongrid.png',
+                                new OpenLayers.Bounds(-215, -413, IMAGE_WIDTH+240, IMAGE_HEIGHT+239),
+                                new OpenLayers.Size(OVERLAY_WIDTH/12, OVERLAY_WIDTH/8),
+                                { visibility: true, transparent: true, isBaseLayer: false });
+
+            var displacements = new OpenLayers.Layer.Image(
+                                'Displacements',
+                                'displacements.png',
+                                new OpenLayers.Bounds(-215, -413, IMAGE_WIDTH+240, IMAGE_HEIGHT+239),
+                                new OpenLayers.Size(OVERLAY_WIDTH/8, OVERLAY_WIDTH/8),
+                                { visibility: true, transparent: true, isBaseLayer: false });
+
+            var isolinesrotation = new OpenLayers.Layer.Image(
+                                'Isolines Rotation',
+                                'isolines-rotation.png',
+                                new OpenLayers.Bounds(-215, -413, IMAGE_WIDTH+240, IMAGE_HEIGHT+239),
+                                new OpenLayers.Size(OVERLAY_WIDTH/10, OVERLAY_WIDTH/10),
+                                { visibility: false, transparent: true, isBaseLayer: false });
+
+            var isolinesscale = new OpenLayers.Layer.Image(
+                                'Isolines Scale',
+                                'isolines-scale.png',
+                                new OpenLayers.Bounds(-215, -413, IMAGE_WIDTH+240, IMAGE_HEIGHT+239),
+                                new OpenLayers.Size(OVERLAY_WIDTH/10, OVERLAY_WIDTH/10),
+                                { visibility: false, transparent: true, isBaseLayer: false });
+
+
+            var points = new OpenLayers.Layer.Image(
+                    'Points',
+                    'points.png',
+                    new OpenLayers.Bounds(0, 0-5, IMAGE_WIDTH, IMAGE_HEIGHT),
+                    new OpenLayers.Size(IMAGE_WIDTH/10, IMAGE_HEIGHT/10),
+                    { visibility: true, transparent: true, isBaseLayer: false });
+
+            map.addLayers([oldmap, distortiongrid, displacements, isolinesrotation, isolinesscale, points ]);
+
+            var switcherControl = new OpenLayers.Control.LayerSwitcher();
+            map.addControl(switcherControl);
+            switcherControl.maximizeControl();
+
+			map.addControl(new OpenLayers.Control.MousePosition());
+	        map.addControl(new OpenLayers.Control.PanZoomBar());
+	        map.addControl(new OpenLayers.Control.MouseDefaults());
+	        map.addControl(new OpenLayers.Control.KeyboardDefaults());
+			
+            map.zoomToMaxExtent();
+
+
+        }
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="map"></div>
+  </body>
+</html>
