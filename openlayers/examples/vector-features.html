@@ -93,9 +93,12 @@
                 new OpenLayers.Geometry.Polygon([linearRing]));
 
 
+			var curveFeature = new OpenLayers.Feature.Vector(
+                new OpenLayers.Geometry.Curve([0,0], [2.5,5], [5,0], [2.5, -5], [0,0]));
+
             map.addLayer(vectorLayer);
             map.setCenter(new OpenLayers.LonLat(point.x, point.y), 5);
-            vectorLayer.addFeatures([pointFeature, pointFeature3, pointFeature2, lineFeature, polygonFeature]);
+            vectorLayer.addFeatures([pointFeature, pointFeature3, pointFeature2, lineFeature, polygonFeature, curveFeature]);
         }
     </script>
   </head>
