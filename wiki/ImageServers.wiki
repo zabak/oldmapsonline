@@ -90,3 +90,12 @@ Examples:
 David Rumsey Map Collection
 
 http://rumseysid.lunaimaging.com/mrsid/bin/image_jpeg.pl?client=Rumsey&image=SIDS/D0115/4638017.sid&x=120&y=120&width=256&height=256&level=0
+
+= Commercial: XLimage: image server =
+
+http://www.xlimage.it/?interf=flash&lang=ENG
+
+Examples:
+
+http://mara.kbr.be/kbrImage/CM/1052417.imgf
+
