@@ -1,0 +1,111 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <style type="text/css">
+        html, body { width: 100%; height: 100%; border: 0; padding:0; margin:0; }
+        #map { width: 100%; height: 100%; }
+    </style>	
+    <title>MapAnalyst Online - Vector Overlay</title>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script type="text/javascript">
+        var map;
+        function init(){
+			IMAGE_WIDTH = 1600;
+			IMAGE_HEIGHT = 1018;
+			image_bounds = new OpenLayers.Bounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+
+
+			// Coordinate transformation for "RASTER" coordinates to pseudo geodetic coordinates (first quadrant pixels)
+			forwardTransform = function(point) {
+				point.y = (-1) * point.y - IMAGE_HEIGHT;
+				return point;
+			}
+			backwardTransform = function(point) {
+				point.y = (-1) * point.y + IMAGE_HEIGHT;
+				return point;
+			}
+			OpenLayers.Projection.addTransform("RASTER", "EPSG:4326", forwardTransform);
+			OpenLayers.Projection.addTransform("EPSG:4326", "RASTER", backwardTransform);
+			src = new OpenLayers.Projection("RASTER");
+			dst = new OpenLayers.Projection("EPSG:4326");
+			
+			preFeatureInsert = function(feature) {
+				return feature.geometry.transform(dst, src);
+			}
+
+			// INITIALIZATION OF THE MAP
+			
+            map = new OpenLayers.Map('map', {
+				controls: [],
+	 			maxExtent: new OpenLayers.Bounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT),
+				displayProjection: new OpenLayers.Projection("RASTER"),
+	            numZoomLevels: 8
+			});
+
+            var oldmap = new OpenLayers.Layer.Image(
+                                'Old Map',
+                                '../rasterdemo/old_map.jpg',
+                                new OpenLayers.Bounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT),
+                                new OpenLayers.Size(IMAGE_WIDTH/10, IMAGE_HEIGHT/10),
+                                {});
+
+			// Distortion grid
+            var distortiongrid = new OpenLayers.Layer.GML(
+								'Distortion Grid (GeoJSON)',
+								'./distortiongrid.geojson',
+								{   format: OpenLayers.Format.GeoJSON,
+									preFeatureInsert: preFeatureInsert,
+									style: {
+						                strokeColor: "#000000",
+						                strokeWidth: 1.5 // this should be dynamic, based on the zoom level
+									}
+								});
+			
+
+			// Styling for Displacement based on properties of features
+            var context = {
+                getSize: function(feature) {
+                    return parseInt((feature.attributes['displacement'] * 2 * map.zoom ) ); // Use also: map.zoom
+                },
+				getColor: function(feature) {
+					return feature.attributes['color'];
+				}
+            };
+            var template = {
+                pointRadius: "${getSize}", // using context.getSize(feature) result
+                strokeColor: "${getColor}", // using feature property 'color' directly
+                strokeWidth: 1.5,
+				fillColor: "#FFFFFF",
+				fillOpacity: 0.8
+            };
+            var style = new OpenLayers.Style(template, {context: context});
+
+			// Displacements
+            var displacements = new OpenLayers.Layer.GML(
+								'Displacements (GeoJSON)',
+								'./displacements.geojson',
+								{   format: OpenLayers.Format.GeoJSON,
+									preFeatureInsert: preFeatureInsert,
+									styleMap: new OpenLayers.StyleMap( style )
+					            });
+
+			// Map presentation
+            map.addLayers([oldmap, distortiongrid, displacements ]);
+			
+            var switcherControl = new OpenLayers.Control.LayerSwitcher();
+            map.addControl(switcherControl);
+            switcherControl.maximizeControl();
+
+			map.addControl(new OpenLayers.Control.MousePosition());
+	        map.addControl(new OpenLayers.Control.PanZoomBar());
+	        map.addControl(new OpenLayers.Control.MouseDefaults());
+	        map.addControl(new OpenLayers.Control.KeyboardDefaults());
+			
+            map.zoomToMaxExtent();
+        }
+    // -->
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="map"></div>
+  </body>
+</html>
