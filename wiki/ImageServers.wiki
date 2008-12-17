@@ -59,6 +59,10 @@ http://www.nls.uk:80/lizardtech/iserv/getimage?cat=Maps&item=00000293.sid&cp=0.5
 
 http://www.nla.gov.au/lizardtech/iserv/getimage?cat=NLAObjects&img=/nla.map/f/005/94/nla.map-f00594-sd.sid&oif=jpeg&rgn=0.1226415094,-0.0180995475,0.8773584906,1.0161603103&cmd=&wid=400&hei=400
 
+Documentation:
+
+http://www.lizardtech.es/support/sup_expperl.txt
+
 = Commercial: OCLC ContentDM (JPEG2000?) =
 
 (I hope it is this product)
@@ -98,4 +102,3 @@ http://www.xlimage.it/?interf=flash&lang=ENG
 Examples:
 
 http://mara.kbr.be/kbrImage/CM/1052417.imgf
-
