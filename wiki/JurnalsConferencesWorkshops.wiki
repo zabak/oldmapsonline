@@ -74,6 +74,12 @@ http://www.cosis.net/members/meetings/skeleton/session_information.php?p_id=361&
 IGARSS 2009 - http://www.igarss09.org/
 IGARSS 2010 July 05-09 Hawaii, USA
 
+
+=== ECIR 2010 - UK ===
+Milton Keynes, UK from the 28th to the 31st of March 2010
+32nd European Conference on Information Retrieval
+http://kmi.open.ac.uk/events/ecir2010/
+
 = Workshops =
 
 === ICA Commission on Digital Technologies in Cartographic Heritage Workshops ===
