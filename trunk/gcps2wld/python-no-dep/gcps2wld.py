@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# encoding: utf-8
 """
 gcps2wld.py
 -----------
@@ -13,9 +12,9 @@ TransformAffine5.java, TransfrormHelmert.java)
 
 Description of the algorithms is available in (Chapter: Affine5, page 19):
 
-Beineke, D. (2001) Verfahren zur Genauigkeitsanalyse für Altkarten.
-Studiengang Geodäsie und Geoinformation. PhD thesis. München,
-Universität der Bundeswehr, 155 pp. [Corrigendum].
+Beineke, D. (2001) Verfahren zur Genauigkeitsanalyse fur Altkarten.
+Studiengang Geodasie und Geoinformation. PhD thesis. Munchen,
+Universitat der Bundeswehr, 155 pp. [Corrigendum].
 http://www.unibw.de/ipk/karto-en/publications/pubbeineke-en/books/
 docbeineke-en/down1/at_download
 
