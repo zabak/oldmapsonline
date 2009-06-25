@@ -29,6 +29,9 @@ http://www.oldmapsonline.org/publish/iipmooviewer/iipmooviewer.html
 
 http://dltj.org/article/introducing-j2ktilerenderer/
 
+Source code:
+https://drc-dev.ohiolink.edu/svn/j2kTileRenderer/trunk/
+
 Protocol compatible with Zoomify tles.
 
 = OpenSource: aDORe djatoka (JPEG2000) =
