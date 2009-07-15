@@ -41,6 +41,10 @@ http://www.ushahidi.com/timeline.asp
 
 http://oldmapsonline.googlecode.com/svn/wiki/simile-timeline.png
 
+== JQuery Timeline ==
+
+http://github.com/jesantos/jquery-timeline/tree/master
+
 
 == Dipity.com ==
 
