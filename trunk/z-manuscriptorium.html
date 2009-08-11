@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>OpenLayers Zoomify Example</title>
+    <script src="http://oldmapsonline.googlecode.com/svn/trunk/openlayers/OpenLayers.js"></script>
+    <script type="text/javascript">
+
+		// http://www.nls.uk/maps/detail.cfm?id=225
+		var width = 10027;
+		var height = 6945;
+		var url = "http://193.85.211.98/lizardtech/iserv/getimage?cat=NKCR__INV_C_3343_____17GQ&item=INV_C_3343_____17GQS30001P.SID";
+
+        var map, zoomify;
+
+        function init(){
+	       /* First we initialize the zoomify pyramid (to get number of tiers) */
+	        var zoomify = new OpenLayers.Layer.Zoomify( "Zoomify", url, 
+		  		new OpenLayers.Size( width, height ) );
+			zoomify.getURL = getURLcustom;
+			//zoomify.tileSize = new OpenLayers.Size(512, 512);
+			//zoomify.standardTileSize = 512;
+
+	       /* Map with raster coordinates (pixels) from Zoomify image */
+	        var options = {
+	            controls: [],
+	            maxExtent: new OpenLayers.Bounds(0, 0, width, height),
+	            maxResolution: Math.pow(2, zoomify.numberOfTiers-1 ),
+	            numZoomLevels: zoomify.numberOfTiers,
+	            units: 'pixels'
+	        };
+
+	        map = new OpenLayers.Map("map", options);
+	        map.addLayer(zoomify);
+
+	        map.addControl(new OpenLayers.Control.MousePosition());
+	        map.addControl(new OpenLayers.Control.PanZoomBar());
+	        map.addControl(new OpenLayers.Control.MouseDefaults());
+	        map.addControl(new OpenLayers.Control.KeyboardDefaults());
+
+            map.setBaseLayer(zoomify);
+	        map.zoomToMaxExtent();
+        };
+
+	    function getURLcustom (bounds) {
+	        bounds = this.adjustBounds(bounds);
+	        var res = this.map.getResolution();
+			var size = this.getImageSize(bounds);
+			var x = ( bounds.left + res*size.w/2 ) / this.maxExtent.right; 
+			var y = ( this.maxExtent.top - bounds.top + res*size.h/2 ) / this.maxExtent.top;
+            var z = this.numZoomLevels - this.map.getZoom() - 1;
+			// return "http://chart.apis.google.com/chart?chst=d_text_outline&chs="+size.w+"x"+size.h+"&chf=bg,s,00000055&chld=FFFFFF|16|h|000000|b|"+x+" "+y+"|"+z+"||("+bounds.left+"-"+bounds.right+")|("+bounds.top+"-"+bounds.bottom+")|||||____________________________";
+			return this.url+"&cp="+x+","+y+"&lev="+z+"&wid="+size.w+"&hei="+size.h+"&";
+	        var url = this.url;
+	        if (url instanceof Array) {
+	            url = this.selectUrl(path, url);
+	        }
+	        return url + path;
+	    };
+
+    </script>
+  </head>
+  <body onload="init()">
+      <h2 id="title">National Library of Czech Republic: demo of the viewer for the Manuscriptorium MrSID image server</h2>
+	  Map of Prague from 1833 - Metadata and original presentation: Use <a href="http://www.manuscriptorium.com/">Manuscriptorium</a> and search in the "Digitized maps" a title "Praha 1833". There is no way how to link a document directly :-(.
+    <div id="map" style="width:100%; height: 80%; border: 1px solid #aaa;"></div>
+  </body>
+</html>
