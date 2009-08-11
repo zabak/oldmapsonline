@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>OpenLayers Zoomify Example</title>
+    <script src="http://oldmapsonline.googlecode.com/svn/trunk/openlayers/OpenLayers.js"></script>
+    <script type="text/javascript">
+
+		var width = 4788;
+		var height = 6572;
+		var url = "http://digitool.is.cuni.cz:5881/ImageServer/imageserver?&filename=L2V4bGlicmlzL2R0bC9zdG9yYWdlX21hcC8yMDA5LzA4LzA0L3ZpZXdfMS83MjM4Mg%3D%3D";
+
+        var map, zoomify;
+
+        function init(){
+	       /* First we initialize the zoomify pyramid (to get number of tiers) */
+	        var zoomify = new OpenLayers.Layer.Zoomify( "Zoomify", url, 
+		  		new OpenLayers.Size( width, height ) );
+			zoomify.getURL = getURLcustom;
+			//zoomify.tileSize = new OpenLayers.Size(512, 512);
+			//zoomify.standardTileSize = 512;
+
+	       /* Map with raster coordinates (pixels) from Zoomify image */
+	        var options = {
+	            controls: [],
+	            maxExtent: new OpenLayers.Bounds(0, 0, width, height),
+	            maxResolution: Math.pow(2, zoomify.numberOfTiers-1 ),
+	            numZoomLevels: zoomify.numberOfTiers,
+	            units: 'pixels'
+	        };
+
+	        map = new OpenLayers.Map("map", options);
+	        map.addLayer(zoomify);
+
+	        map.addControl(new OpenLayers.Control.MousePosition());
+	        map.addControl(new OpenLayers.Control.PanZoomBar());
+	        map.addControl(new OpenLayers.Control.MouseDefaults());
+	        map.addControl(new OpenLayers.Control.KeyboardDefaults());
+
+            map.setBaseLayer(zoomify);
+	        map.zoomToMaxExtent();
+        };
+
+	    function getURLcustom (bounds) {
+	        bounds = this.adjustBounds(bounds);
+	        var res = this.map.getResolution();
+			var size = this.getImageSize(bounds);
+            var x = bounds.left;
+            var y = this.maxExtent.top - bounds.top;
+			// var x = ( bounds.left + res*size.w/2 ) / this.maxExtent.right; 
+			// var y = ( this.maxExtent.top - bounds.top + res*size.h/2 ) / this.maxExtent.top;
+            var z = this.numZoomLevels - this.map.getZoom();
+			// return "http://chart.apis.google.com/chart?chst=d_text_outline&chs="+size.w+"x"+size.h+"&chf=bg,s,00000055&chld=FFFFFF|16|h|000000|b|"+x+" "+y+"|"+z+"||("+bounds.left+"-"+bounds.right+")|("+bounds.top+"-"+bounds.bottom+")|||||____________________________";
+			return this.url+"&res="+z+"&viewwidth="+size.w+"&viewheight="+size.h+"&x="+x+"&y="+y;
+	        var url = this.url;
+	        if (url instanceof Array) {
+	            url = this.selectUrl(path, url);
+	        }
+	        return url + path;
+	    };
+
+    </script>
+  </head>
+  <body onload="init()">
+      <h2 id="title">Charles University: demo of the viewer for the DigiTool image server</h2>
+	  Map of Olomouc from 1758 - <a href="http://digitool.is.cuni.cz/R/5IK6SMILMDJ92S3UKXPRS9IXRF8HCXQET5SBHUPK2XA2499QLY-00183?func=results-jump-full&set_entry=000010">Metadata</a> and <a href="http://digitool.is.cuni.cz:1801/view/action/singleViewer.do?dvs=1250002191200~341&locale=en_US&side_by_side=false&application=DIGITOOL-3&forebear_coll=1984&frameId=1&usePid1=true&usePid2=true">original presentation</a>.
+    <div id="map" style="width:100%; height: 80%; border: 1px solid #aaa;"></div>
+  </body>
+</html>
