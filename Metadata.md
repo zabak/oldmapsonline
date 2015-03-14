@@ -1,0 +1,1 @@
+This page was moved to http://help.oldmapsonline.org/metadata/
